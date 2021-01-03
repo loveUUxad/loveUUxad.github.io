@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="author" content="王霄">
+
+
+
+<meta name="description" content="消息中间件就是用于系统之间消息传输的一类软件，一般用于处理分布式应用中业务的解耦，拓展，异步通知，日志分析，数据复制等等。 消息中间件示意图">
+<meta name="keywords" content="java,activemq,消息中间件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="消息中间件之Activemq">
+<meta property="og:url" content="www.wagnxiao.top/2018/12/19/java/activemq的安装和使用/index.html">
+<meta property="og:site_name" content="WX">
+<meta property="og:description" content="消息中间件就是用于系统之间消息传输的一类软件，一般用于处理分布式应用中业务的解耦，拓展，异步通知，日志分析，数据复制等等。 消息中间件示意图">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="/img/java/mq/1.png">
+<meta property="og:image" content="/img/java/mq/2.png">
+<meta property="og:image" content="/img/java/mq/3.png">
+<meta property="og:image" content="/img/java/mq/4.png">
+<meta property="og:image" content="/img/java/mq/5.png">
+<meta property="og:updated_time" content="2018-12-20T09:02:44.630Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="消息中间件之Activemq">
+<meta name="twitter:description" content="消息中间件就是用于系统之间消息传输的一类软件，一般用于处理分布式应用中业务的解耦，拓展，异步通知，日志分析，数据复制等等。 消息中间件示意图">
+<meta name="twitter:image" content="/img/java/mq/1.png">
+
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="WX" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/zdy.ico">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>消息中间件之Activemq | WX</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?3cf5afc8c81e87483746fe5f142df8b4";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="https://wxad.oss-cn-beijing.aliyuncs.com/psb.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">王霄</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">夏天的风我永远记得</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false">
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class="no-result">No results found <i class="fa fa-spinner fa-pulse"></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <!--加滚动条-->
+                    <nav class="header-menu" style="position:relative; height:400px; overflow-y:auto">
+                        <ul style="position:relative; height:400px; overflow-y:auto">
+                            
+                                <li><a href="/">主页</a></li>
+                            
+                                <li><a href="/archives/">所有文章</a></li>
+                            
+                                <li><a href="/tags/">标签云</a></li>
+                            
+                                <li><a href="/tags/个人日记/">个人日记</a></li>
+                            
+                                <li><a href="/tags/goal/">目标</a></li>
+                            
+                                <li><a href="/about/">关于我</a></li>
+                            
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:&#49;&#48;&#51;&#51;&#49;&#51;&#54;&#57;&#54;&#55;&#64;&#113;&#113;&#46;&#99;&#111;&#109;" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/loveUUxad" title="GitHub"></a>
+                            
+                                <a class="fa Gitee" href="https://gitee.com/loveUUxad" title="Gitee"></a>
+                            
+                                <a class="fa 微信" href="/img/wx.png" title="微信"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JWT/">JWT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/activemq/">activemq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dubbo/">dubbo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/export/">export</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javaSE/">javaSE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mybatis/">mybatis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springboot/">springboot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swagger/">swagger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tkmybatis/">tkmybatis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/多线程/">多线程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/安全协议/">安全协议</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/旅游/">旅游</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/消息中间件/">消息中间件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线程池/">线程池</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/集合/">集合</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://github.com/loveUUxad">GitHub</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">java开发工程师</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">王霄</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="https://wxad.oss-cn-beijing.aliyuncs.com/psb.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">王霄</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">夏天的风我永远记得</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/tags/个人日记/">个人日记</a></li>
+                
+                    <li><a href="/tags/goal/">目标</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:&#49;&#48;&#51;&#51;&#49;&#51;&#54;&#57;&#54;&#55;&#64;&#113;&#113;&#46;&#99;&#111;&#109;" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/loveUUxad" title="GitHub"></a>
+                            
+                                <a class="fa Gitee" target="_blank" href="https://gitee.com/loveUUxad" title="Gitee"></a>
+                            
+                                <a class="fa 微信" target="_blank" href="/img/wx.png" title="微信"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我">
+</nav>
+      <div class="body-wrap"><article id="post-java/activemq的安装和使用" class="article article-type-post" itemscope="" itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/12/19/java/activemq的安装和使用/" class="article-date">
+      <time datetime="2018-12-18T16:00:00.000Z" itemprop="datePublished">2018-12-19</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      消息中间件之Activemq
+    </h1>
+  
+
+		 
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/后端/">后端</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/activemq/">activemq</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/消息中间件/">消息中间件</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>消息中间件就是用于系统之间消息传输的一类软件，一般用于处理分布式应用中业务的解耦，拓展，异步通知，日志分析，数据复制等等。</p>
+<h1 id="消息中间件示意图"><a href="#消息中间件示意图" class="headerlink" title="消息中间件示意图"></a>消息中间件示意图</h1><p><img width="500" height="300" src="/img/java/mq/1.png"><br><a id="more"></a><br>在java中有一套规范消息中间件之间传输协议的API，就是JMS,它有两种消息模式</p>
+<ol>
+<li>队列模式,也称点对点模式，就是一个消息消费者对应一个消息生产者，在消息传递给消费者之前它被存储在这个队列中。队列消息可以放在内存中也可以是持久的，以保证在消息服务出现故障时仍然能够传递消息。发送者和接受者没有时间依赖，而且消费者在接收消息之后需要确认消息接收成功。</li>
+<li>发布—订阅模式，发布者/订阅者模型支持向一个特定的消息主题生产消息。0或多个订阅者可能对接收来自特定消息主题的消息感兴趣。在这种模型下，发布者和订阅者彼此不知道对方。这种模式就好比是匿名公告板。这种模式被概况为：多个消费者可以获得消息，在发布者和订阅者之间存在时间依赖性。发布者需要建立一个订阅，以便能够消费者订阅。订阅者必须保持持续的活动状态及接收消息，除非订阅者建立了持久的订阅。在这种情况下，在订阅者未连接时发布的消息将在订阅者重新连接时重新发布。</li>
+</ol>
+<h1 id="activemq"><a href="#activemq" class="headerlink" title="activemq"></a>activemq</h1><p>ActiveMQ是Apache出品，最流行的，能力强劲的开源消息总线。ActiveMQ是一个完全支持JMS1.1和J2EE1.4规范的JMS,Provider实现，尽管JMS规范出台已经是很久的事情了，但是JMS在当今的J2EE应用中间仍然扮演着特殊的地位。</p>
+<h3 id="写一个activeMQ的Demo"><a href="#写一个activeMQ的Demo" class="headerlink" title="写一个activeMQ的Demo"></a>写一个activeMQ的Demo</h3><p>至于安装我就不细说了，去官网下载，然后解压，进入bin\win64\目录，运行activemq.bat就可以启动了activemq服务了，登陆<a href="http://localhost:8161/，用户名和密码都是admin" target="_blank" rel="noopener">http://localhost:8161/，用户名和密码都是admin</a></p>
+<blockquote>
+<p>引入maven坐标<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/org.apache.activemq/activemq-core --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.activemq<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>activemq-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.7.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>创建一个queue类型的消息生产者<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 作者: WX</span></span><br><span class="line"><span class="comment"> * 描述: 一个队列行消息的生产者</span></span><br><span class="line"><span class="comment"> * 日期: 2018/12/20 15:17</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">QueueProduct</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span><span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">//建立连接工厂</span></span><br><span class="line">        ConnectionFactory connectionFactory = <span class="keyword">new</span> ActiveMQConnectionFactory(<span class="string">"tcp://127.0.0.1:61616"</span>);</span><br><span class="line">        <span class="comment">//建立连接</span></span><br><span class="line">        Connection connection = connectionFactory.createConnection();</span><br><span class="line">        <span class="comment">//连接开启</span></span><br><span class="line">        connection.start();</span><br><span class="line">        <span class="comment">//创建一个服务对象session</span></span><br><span class="line">        Session session = connection.createSession(<span class="keyword">false</span>, Session.AUTO_ACKNOWLEDGE);</span><br><span class="line">        <span class="comment">//创建一个Destination，及接受者标识</span></span><br><span class="line">        Queue queue = session.createQueue(<span class="string">"wx-queue"</span>);</span><br><span class="line">        <span class="comment">//创建一个生产者，并将目的地告诉他</span></span><br><span class="line">        MessageProducer producer = session.createProducer(queue);</span><br><span class="line">        <span class="comment">//创建一个消息</span></span><br><span class="line">        Message message = session.createTextMessage(<span class="string">"这是一个queue类型的消息"</span>);</span><br><span class="line">        <span class="comment">//生产者发送消息</span></span><br><span class="line">        producer.send(message);</span><br><span class="line">        <span class="comment">//关闭连接</span></span><br><span class="line">        producer.close();</span><br><span class="line">        session.close();</span><br><span class="line">        connection.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>创建queue类型消息消费者<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 作者: WX</span></span><br><span class="line"><span class="comment"> * 描述: 一个队列行消息的消费者</span></span><br><span class="line"><span class="comment"> * 日期: 2018/12/20 15:25</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">QueueCustomer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">//建立连接工厂</span></span><br><span class="line">        ConnectionFactory connectionFactory = <span class="keyword">new</span> ActiveMQConnectionFactory(<span class="string">"tcp://127.0.0.1:61616"</span>);</span><br><span class="line">        <span class="comment">//建立连接</span></span><br><span class="line">        Connection connection = connectionFactory.createConnection();</span><br><span class="line">        <span class="comment">//连接开启</span></span><br><span class="line">        connection.start();</span><br><span class="line">        <span class="comment">//创建一个服务对象session</span></span><br><span class="line">        Session session = connection.createSession(<span class="keyword">false</span>, Session.AUTO_ACKNOWLEDGE);</span><br><span class="line">        <span class="comment">//创建一个Destinatio，及接受者标识</span></span><br><span class="line">        Queue queue = session.createQueue(<span class="string">"wx-queue"</span>);</span><br><span class="line">        <span class="comment">//创建一个消费者，并将目的地告诉他</span></span><br><span class="line">        MessageConsumer consumer = session.createConsumer(queue);</span><br><span class="line">        <span class="comment">//消费者实时监听是否有消息传来，传来后打印出来</span></span><br><span class="line">        consumer.setMessageListener(<span class="keyword">new</span> MessageListener() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onMessage</span><span class="params">(Message message)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">if</span> (message <span class="keyword">instanceof</span> TextMessage) &#123;</span><br><span class="line">                    TextMessage textMessage = (TextMessage) message;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        System.out.println(textMessage.getText());</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                        e.printStackTrace();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="comment">//手动关闭实时等待</span></span><br><span class="line">        System.in.read();</span><br><span class="line">        <span class="comment">//关闭连接</span></span><br><span class="line">        consumer.close();</span><br><span class="line">        session.close();</span><br><span class="line">        connection.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>消费者消费消息<br><img width="400" height="200" src="/img/java/mq/2.png"></p>
+</blockquote>
+<h3 id="但是实际开发中我们这样创建消费者和生产者肯定太过繁琐，于是spring就很好的整合了activemq，为我们提供JmsTemplate这套操作模板，让我们来试试吧-我这里直接就在springboot项目中演示了"><a href="#但是实际开发中我们这样创建消费者和生产者肯定太过繁琐，于是spring就很好的整合了activemq，为我们提供JmsTemplate这套操作模板，让我们来试试吧-我这里直接就在springboot项目中演示了" class="headerlink" title="但是实际开发中我们这样创建消费者和生产者肯定太过繁琐，于是spring就很好的整合了activemq，为我们提供JmsTemplate这套操作模板，让我们来试试吧,我这里直接就在springboot项目中演示了"></a>但是实际开发中我们这样创建消费者和生产者肯定太过繁琐，于是spring就很好的整合了activemq，为我们提供JmsTemplate这套操作模板，让我们来试试吧,我这里直接就在springboot项目中演示了</h3><blockquote>
+<p>为你的application.properties添加配置<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#==================activemq Config Start==================</span><br><span class="line">spring.activemq.broker-url=tcp:<span class="comment">//localhost:61616</span></span><br><span class="line">spring.activemq.user=admin  </span><br><span class="line">spring.activemq.password=admin  </span><br><span class="line">spring.activemq.in-memory=<span class="keyword">true</span>  </span><br><span class="line">#####需要将你类所在的包加入白名单#######</span><br><span class="line">spring.activemq.packages.trust-all=<span class="keyword">true</span></span><br><span class="line">#####需要将你类所在的包加入白名单#######</span><br><span class="line">spring.activemq.packages.trusted=</span><br><span class="line">spring.activemq.pool.configuration.*=</span><br><span class="line">spring.activemq.pool.enabled=<span class="keyword">false</span></span><br><span class="line">spring.activemq.pool.expiry-timeout=<span class="number">0</span></span><br><span class="line">spring.activemq.pool.idle-timeout=<span class="number">30000</span></span><br><span class="line">spring.activemq.pool.max-connections=<span class="number">2</span></span><br><span class="line">#==================activemq Config End  ==================</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>为了方便项目中使用，我们先定义一个枚举声明两种消息类型<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 作者: WX</span></span><br><span class="line"><span class="comment"> * 描述: jms枚举</span></span><br><span class="line"><span class="comment"> * 日期: 2018/12/20 16:05</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> JmsType &#123;</span><br><span class="line">    QUEUE,</span><br><span class="line">    TOPIC;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>再定义一个发送消息的工具类<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 作者: WX</span></span><br><span class="line"><span class="comment"> * 描述: JMS提供者</span></span><br><span class="line"><span class="comment"> * 日期: 2018/12/20 15:55</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"> <span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JmsProvider</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 注入JmsMessagingTemplate</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> JmsMessagingTemplate jmsMessagingTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 使用线程池提供一个无阻塞的发送提高效率</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> Executor executor;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setJmsMessagingTemplate</span><span class="params">(JmsMessagingTemplate jmsMessagingTemplate)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.jmsMessagingTemplate = jmsMessagingTemplate;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setExecutor</span><span class="params">(Executor executor)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.executor = executor;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 发送消息</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> jmsType 消息类型</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> destinationName 目的地名称</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> message 消息内容</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">send</span><span class="params">(JmsType jmsType, String destinationName, Object message)</span> </span>&#123;</span><br><span class="line">        Destination destination;</span><br><span class="line">        <span class="keyword">if</span> (JmsType.QUEUE == jmsType) &#123;</span><br><span class="line">            destination = <span class="keyword">new</span> ActiveMQQueue(destinationName);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            destination = <span class="keyword">new</span> ActiveMQTopic(destinationName);</span><br><span class="line">        &#125;</span><br><span class="line">        executor.execute(() -&gt; jmsMessagingTemplate.convertAndSend(destination, message));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>我们项目中在用户登陆成功之后会发送一条问候给用户，这里我模拟一下定义一个destinationName<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * 用户登录成功消息</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">String ADMIN_LOGIN_SUCCESS_QUEUE = <span class="string">"wx."</span> + <span class="string">"login"</span> + <span class="string">".queue"</span>;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>生产者<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Resource</span>(name = <span class="string">"jmsProvider"</span>)</span><br><span class="line"><span class="keyword">private</span> JmsProvider jmsProvider;</span><br><span class="line"></span><br><span class="line"><span class="comment">//登陆成功之后，我们会发送一条消息，这个userResponse封装的是我们的用户信息</span></span><br><span class="line">jmsProvider.send(JmsType.QUEUE,UserJmsConst.ADMIN_LOGIN_SUCCESS_QUEUE, userResponse);</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>消费者<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 作者: 王霄</span></span><br><span class="line"><span class="comment"> * 描述: 登陆成功消息消费者</span></span><br><span class="line"><span class="comment"> * 日期: 2018/5/30 10:33</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserHandler</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 登录成功后可以对用户表里面的某些字段进行修改，比如最近登录时间</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> response</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@JmsListener</span>(destination = UserJmsConst.ADMIN_LOGIN_SUCCESS_QUEUE)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">LoginMessage</span><span class="params">(UserResponse response)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"亲爱的"</span>+response.getUsername()+<span class="string">",欢迎登录"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="模拟登陆"><a href="#模拟登陆" class="headerlink" title="模拟登陆"></a>模拟登陆</h3><p><img width="700" height="300" src="/img/java/mq/3.png"><img width="700" height="300" src="/img/java/mq/4.png"><br><img width="600" height="200" src="/img/java/mq/5.png"></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2018/12/19/java/activemq的安装和使用/">消息中间件之Activemq</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">王霄</a></p>
+        <p><span>发布时间:</span>2018-12-19, 00:00:00</p>
+        <p><span>最后更新:</span>2018-12-20, 17:02:44</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2018/12/19/java/activemq的安装和使用/" title="消息中间件之Activemq">www.wagnxiao.top/2018/12/19/java/activemq的安装和使用/</a>
+            <span class="copy-path" data-clipboard-text="原文: www.wagnxiao.top/2018/12/19/java/activemq的安装和使用/　　作者: 王霄" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target="_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2019/01/19/java/线程池的简单使用/">
+                    springboot中线程池的使用
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2018/12/19/java/docker入门/">
+                    Docker简介
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#消息中间件示意图"><span class="toc-number">1.</span> <span class="toc-text">消息中间件示意图</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#activemq"><span class="toc-number">2.</span> <span class="toc-text">activemq</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#写一个activeMQ的Demo"><span class="toc-number">2.0.1.</span> <span class="toc-text">写一个activeMQ的Demo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#但是实际开发中我们这样创建消费者和生产者肯定太过繁琐，于是spring就很好的整合了activemq，为我们提供JmsTemplate这套操作模板，让我们来试试吧-我这里直接就在springboot项目中演示了"><span class="toc-number">2.0.2.</span> <span class="toc-text">但是实际开发中我们这样创建消费者和生产者肯定太过繁琐，于是spring就很好的整合了activemq，为我们提供JmsTemplate这套操作模板，让我们来试试吧,我这里直接就在springboot项目中演示了</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模拟登陆"><span class="toc-number">2.0.3.</span> <span class="toc-text">模拟登陆</span></a></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录" title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+
+
+    
+
+
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/love.js"></script>
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2019/01/19/java/线程池的简单使用/" title="上一篇: springboot中线程池的使用">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2018/12/19/java/docker入门/" title="下一篇: Docker简介">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/05/05/algorithm/排序算法/">几种经典的排序算法</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/05/01/algorithm/十进制转换为二进制算法/">十进制数字转换为二进制</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/17/interview/加密协议/">RSA签名和加密的区别</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/19/java/线程池的简单使用/">springboot中线程池的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/19/java/activemq的安装和使用/">消息中间件之Activemq</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/19/java/docker入门/">Docker简介</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/01/life/塘栖古镇一日游/">塘栖古镇一日游</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/19/java/java实现csv文件的导出/">java中导出csv类型文件</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/12/java/jwt实现安全登录/">JWT实现安全登陆</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/05/java/swagger接口文档的使用/">Swagger在线接口文档</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/13/java/dubbo的简单使用/">dubbo的简单使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/05/life/memory/">来一波回忆杀</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/05/java/tkmybatis入门/">tkmybatis的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/23/java/design_mode/适配器模式/">设计模式之适配器模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/22/java/design_mode/建造者模式/">设计模式之建造者模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/21/java/design_mode/原型模式/">设计模式之原型模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/java/design_mode/工厂方法模式/">设计模式之工厂方法模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/19/java/design_mode/简单工厂模式/">设计模式之简单工厂模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/18/java/design_mode/单例模式/">设计模式之单例模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/17/interview/hashMap面试题/">HashMap,HashTable,ConcurrentHashMap</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/02/hello-world/">Hello World</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("05/19/2018 12:49:00");//此处修改你的建站时间或者网站上线时间 
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2018-2021 王霄
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  主题 <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> 来自作者<a href="http://moxfive.xyz/2015/08/20/blog-building/"> MOxFIVE</a> <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style="display:none">
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style="display:none">
+                        <span id="page-visit" title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+                <span id="timeDate"></span><span id="times"></span>
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+    <script src="/js/GithubRepoWidget.js"></script>
+
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 6;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+             github: ".github-widget a", 
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+             menu: ".header-menu a", 
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+    <script>
+        var originTitle = document.title;
+        var titleTime;
+        document.addEventListener("visibilitychange", function() {
+            if (document.hidden) {
+                document.title = "开心" + originTitle;
+                clearTimeout(titleTime);
+            }
+            else {
+                document.title = "不开心" + originTitle;
+                titleTime = setTimeout(function() {
+                    document.title = originTitle;
+                }, 2000);
+            }
+        })
+    </script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
