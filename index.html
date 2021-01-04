@@ -1,1395 +1,311 @@
+
 <!DOCTYPE html>
-<html lang="zh-Hans">
+<html lang="zh-Hans" class="loading">
 <head><meta name="generator" content="Hexo 3.8.0">
-
-    <!--[if lt IE 9]>
-        <style>body {display: none; background: none !important} </style>
-        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
-    <![endif]-->
-
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<meta name="format-detection" content="telephone=no">
-<meta name="author" content="王霄">
-
-
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>WX - 夏天的风我永远记得</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate">
+    <meta name="keywords" content="Fechin,"> 
+    <meta name="description" content="个人博客,"> 
+    <meta name="author" content="王霄"> 
+    <link rel="alternative" href="atom.xml" title="WX" type="application/atom+xml"> 
+    <link rel="icon" href="/img/篮球.png"> 
     
+    <link rel="stylesheet" href="/css/diaspora.css">
+	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-8691406134231910",
+              enable_page_level_ads: true
+         });
+    </script>
+    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
+</head>
+</html>
+<body class="loading">
+    <span id="config-title" style="display:none">WX</span>
+    <div id="loader"></div>
+    <div class="nav">
+    <ul id="menu-menu" class="menu">
+        
+        <li class="pview menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="//" title="首页" target="_blank" rel="noopener">首页</a>
+        </li>
+        
+        <li class="pview menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/categories/" title="分类" target="_blank" rel="noopener">分类</a>
+        </li>
+        
+        <li class="pview menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/tags/" title="标签" target="_blank" rel="noopener">标签</a>
+        </li>
+        
+        <li class="pview menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/archives/" title="归档" target="_blank" rel="noopener">归档</a>
+        </li>
+        
+        <li class="pview menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/about/" title="关于" target="_blank" rel="noopener">关于</a>
+        </li>
+        
+    </ul>
+	<span class="target"></span>
+	<center>
+	<div class="hitokoto">
+		<span class="typed" id="hitokoto" data-st="true"></span>
+	</div>
+	</center>
+	
+	<p class="footerlinks">
+		<a href="#" class="iconfont icon-null"></a>
+		
+            <a href="/" title="facebook" class="iconfont icon-facebook" target="_blank" rel="noopener"> </a>
+        
+            <a href="/" title="twitter" class="iconfont icon-twitter" target="_blank" rel="noopener"> </a>
+        
+            <a href="/" title="github" class="iconfont icon-github" target="_blank" rel="noopener"> </a>
+        
+            <a href="/img/logo.png" title="wechat" class="iconfont icon-wechat" target="_blank" rel="noopener"> </a>
+        
+            <a href="mailto:xxxx@gmail.com" title="email" class="iconfont icon-email" target="_blank" rel="noopener"> </a>
+        
+		<a href="#" class="iconfont icon-null"></a>
+	</p>
+	
+    <p id="copyright">
+        &copy; 2021 王霄.
+        <span> | </span>Powered by <a href="https://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        <span> | </span>Theme <a href="https://github.com/Fechin/hexo-theme-diaspora" title="Diaspora" target="_blank" rel="noopener">Diaspora</a> by Fechin
+		
+		<span> | </span><a rel="nofollow" href="http://www.beian.miit.gov.cn" target="_blank">冀ICP备xxxxxxx号</a>
+		
+    </p>
+</div>
+
+<div id="container">
     
-
-
-<meta name="description" content="个人博客">
-<meta name="keywords" content="WX">
-<meta property="og:type" content="website">
-<meta property="og:title" content="WX">
-<meta property="og:url" content="www.wagnxiao.top/index.html">
-<meta property="og:site_name" content="WX">
-<meta property="og:description" content="个人博客">
-<meta property="og:locale" content="zh-Hans">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="WX">
-<meta name="twitter:description" content="个人博客">
-
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-
-
-    <link rel="alternate" href="/atom.xml" title="WX" type="application/atom+xml">
-
-
-
-    <link rel="shortcut icon" href="/zdy.ico">
-
-
-
-    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
-
-
-
-    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
-
-
-
-    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
-    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
-
-
-<link rel="stylesheet" href="/css/style.css">
-
-
-    <style> .article { opacity: 0;} </style>
-
-
-<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
-
-
-<title>WX</title>
-
-<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
-<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
-
-<script>
-    var yiliaConfig = {
-        fancybox: true,
-        animate: true,
-        isHome: true,
-        isPost: false,
-        isArchive: false,
-        isTag: false,
-        isCategory: false,
-        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
-        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
-        search: true
-    }
-</script>
-
-
-    <script>
-        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
-    </script>
-
-
-
-    <script> yiliaConfig.rootUrl = "\/";</script>
-
-
-
-
-
-    <script>
-        var _hmt = _hmt || [];
-        (function() {
-            var hm = document.createElement("script");
-            hm.src = "//hm.baidu.com/hm.js?3cf5afc8c81e87483746fe5f142df8b4";
-            var s = document.getElementsByTagName("script")[0]; 
-            s.parentNode.insertBefore(hm, s);
-        })();
-    </script>
-
-
-</head></html>
-<body>
-  <div id="container">
-    <div class="left-col">
-    <div class="overlay"></div>
-<div class="intrude-less">
-    <header id="header" class="inner">
-        <a href="/" class="profilepic">
-            <img src="https://wxad.oss-cn-beijing.aliyuncs.com/psb.jpg" class="animated zoomIn">
-        </a>
-        <hgroup>
-          <h1 class="header-author"><a href="/">王霄</a></h1>
-        </hgroup>
-
-        
-        <p class="header-subtitle">夏天的风我永远记得</p>
-        
-
-        
-            <form id="search-form">
-            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false">
-            <i class="fa fa-times" onclick="resetSearch()"></i>
-            </form>
-            <div id="local-search-result"></div>
-            <p class="no-result">No results found <i class="fa fa-spinner fa-pulse"></i></p>
-        
-
-
-        
-            <div id="switch-btn" class="switch-btn">
-                <div class="icon">
-                    <div class="icon-ctn">
-                        <div class="icon-wrap icon-house" data-idx="0">
-                            <div class="birdhouse"></div>
-                            <div class="birdhouse_holes"></div>
-                        </div>
-                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
-                            <div class="ribbon"></div>
-                        </div>
-                        
-                        <div class="icon-wrap icon-link hide" data-idx="2">
-                            <div class="loopback_l"></div>
-                            <div class="loopback_r"></div>
-                        </div>
-                        
-                        
-                        <div class="icon-wrap icon-me hide" data-idx="3">
-                            <div class="user"></div>
-                            <div class="shoulder"></div>
-                        </div>
-                        
-                    </div>
-                    
-                </div>
-                <div class="tips-box hide">
-                    <div class="tips-arrow"></div>
-                    <ul class="tips-inner">
-                        <li>菜单</li>
-                        <li>标签</li>
-                        
-                        <li>友情链接</li>
-                        
-                        
-                        <li>关于我</li>
-                        
-                    </ul>
-                </div>
-            </div>
-        
-
-        <div id="switch-area" class="switch-area">
-            <div class="switch-wrap">
-                <section class="switch-part switch-part1">
-                    <!--加滚动条-->
-                    <nav class="header-menu" style="position:relative; height:400px; overflow-y:auto">
-                        <ul style="position:relative; height:400px; overflow-y:auto">
-                            
-                                <li><a href="/">主页</a></li>
-                            
-                                <li><a href="/archives/">所有文章</a></li>
-                            
-                                <li><a href="/tags/">标签云</a></li>
-                            
-                                <li><a href="/tags/个人日记/">个人日记</a></li>
-                            
-                                <li><a href="/tags/goal/">目标</a></li>
-                            
-                                <li><a href="/about/">关于我</a></li>
-                            
-                        </ul>
-                    </nav>
-                    <nav class="header-nav">
-                        <ul class="social">
-                            
-                                <a class="fa Email" href="mailto:&#49;&#48;&#51;&#51;&#49;&#51;&#54;&#57;&#54;&#55;&#64;&#113;&#113;&#46;&#99;&#111;&#109;" title="Email"></a>
-                            
-                                <a class="fa GitHub" href="https://github.com/loveUUxad" title="GitHub"></a>
-                            
-                                <a class="fa Gitee" href="https://gitee.com/loveUUxad" title="Gitee"></a>
-                            
-                                <a class="fa 微信" href="/img/wx.png" title="微信"></a>
-                            
-                        </ul>
-                    </nav>
-                </section>
-                
-                
-                <section class="switch-part switch-part2">
-                    <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JWT/">JWT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/activemq/">activemq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dubbo/">dubbo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/export/">export</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javaSE/">javaSE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mybatis/">mybatis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springboot/">springboot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swagger/">swagger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tkmybatis/">tkmybatis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/多线程/">多线程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/安全协议/">安全协议</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/旅游/">旅游</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/消息中间件/">消息中间件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线程池/">线程池</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/集合/">集合</a></li></ul>
-                    </div>
-                </section>
-                
-                
-                
-                <section class="switch-part switch-part3">
-                    <div id="js-friends">
-                    
-                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
-                    
-                      <a class="main-nav-link switch-friends-link" href="https://github.com/loveUUxad">GitHub</a>
-                    
-                    </div>
-                </section>
-                
-
-                
-                
-                <section class="switch-part switch-part4">
-                
-                    <div id="js-aboutme">java开发工程师</div>
-                </section>
-                
-            </div>
+<div id="screen">
+    <div id="mark">
+        <div class="layer" data-depth="0.4">
+            <img src="/img/welcome-cover.jpg" id="cover" crossorigin="anonymous" width="1920" height="1080">
         </div>
-    </header>                
-</div>
     </div>
-    <div class="mid-col">
-      <nav id="mobile-nav">
-      <div class="overlay">
-          <div class="slider-trigger"></div>
-          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">王霄</a></h1>
-      </div>
-    <div class="intrude-less">
-        <header id="header" class="inner">
-            <a href="/" class="profilepic">
-                <img src="https://wxad.oss-cn-beijing.aliyuncs.com/psb.jpg" class="animated zoomIn">
-            </a>
-            <hgroup>
-              <h1 class="header-author"><a href="/" title="回到主页">王霄</a></h1>
-            </hgroup>
-            
-            <p class="header-subtitle">夏天的风我永远记得</p>
-            
-            <nav class="header-menu">
-                <ul>
-                
-                    <li><a href="/">主页</a></li>
-                
-                    <li><a href="/archives/">所有文章</a></li>
-                
-                    <li><a href="/tags/">标签云</a></li>
-                
-                    <li><a href="/tags/个人日记/">个人日记</a></li>
-                
-                    <li><a href="/tags/goal/">目标</a></li>
-                
-                    <li><a href="/about/">关于我</a></li>
-                
-                <div class="clearfix"></div>
-                </ul>
-            </nav>
-            <nav class="header-nav">
-                        <ul class="social">
-                            
-                                <a class="fa Email" target="_blank" href="mailto:&#49;&#48;&#51;&#51;&#49;&#51;&#54;&#57;&#54;&#55;&#64;&#113;&#113;&#46;&#99;&#111;&#109;" title="Email"></a>
-                            
-                                <a class="fa GitHub" target="_blank" href="https://github.com/loveUUxad" title="GitHub"></a>
-                            
-                                <a class="fa Gitee" target="_blank" href="https://gitee.com/loveUUxad" title="Gitee"></a>
-                            
-                                <a class="fa 微信" target="_blank" href="/img/wx.png" title="微信"></a>
-                            
-                        </ul>
-            </nav>
-        </header>                
+    <div id="vibrant">
+        <svg viewbox="0 0 2880 1620" height="100%" preserveaspectratio="xMaxYMax slice">
+            <polygon opacity="0.7" points="2000,1620 0,1620 0,0 600,0 "/>
+        </svg>
+        <div></div>
     </div>
-    <link class="menu-list" tags="标签" friends="友情链接" about="关于我">
-</nav>
-      <div class="body-wrap">
-  
-    <article id="post-algorithm/排序算法" class="article article-type-post" itemscope="" itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2020/05/05/algorithm/排序算法/" class="article-date">
-      <time datetime="2020-05-04T16:00:00.000Z" itemprop="datePublished">2020-05-05</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/05/algorithm/排序算法/">几种经典的排序算法</a>
-    </h1>
-  
-
-		 
-        
-           <div style="margin-top:10px;">
-    <span class="post-time">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-keyboard-o"></i>
-        <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">245字</span>
-      </span>
-    </span>
-
-    <span class="post-time">
-      &nbsp; | &nbsp;
-      <span class="post-meta-item-icon">
-        <i class="fa fa-hourglass-half"></i>
-        <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">1分</span>
-      </span>
-    </span>
-</div>
-        
-        
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h1 id="1-选择排序"><a href="#1-选择排序" class="headerlink" title="1.选择排序"></a>1.选择排序</h1><p>工作原理：首先在未排序序列中找到最小（大）元素，存放到排序序列的起始位置，然后，再从剩余未排序元素中继续寻找最小（大）元素，然后放到已排序序列的末尾。以此类推，直到所有元素均排序完毕。<br>
-          
-      
-    </p></div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/后端/">后端</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2020/05/05/algorithm/排序算法/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-<!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/love.js"></script>
-
-
-
-
-  
-    <article id="post-algorithm/十进制转换为二进制算法" class="article article-type-post" itemscope="" itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2020/05/01/algorithm/十进制转换为二进制算法/" class="article-date">
-      <time datetime="2020-04-30T16:00:00.000Z" itemprop="datePublished">2020-05-01</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/01/algorithm/十进制转换为二进制算法/">十进制数字转换为二进制</a>
-    </h1>
-  
-
-		 
-        
-           <div style="margin-top:10px;">
-    <span class="post-time">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-keyboard-o"></i>
-        <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">54字</span>
-      </span>
-    </span>
-
-    <span class="post-time">
-      &nbsp; | &nbsp;
-      <span class="post-meta-item-icon">
-        <i class="fa fa-hourglass-half"></i>
-        <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">1分</span>
-      </span>
-    </span>
-</div>
-        
-        
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">a = int(input(<span class="string">'请输入要转换的数：'</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_</span><span class="params">(a: int)</span>:</span></span><br><span class="line">    b = <span class="string">''</span></span><br><span class="line">    <span class="keyword">while</span> a &gt;= <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">if</span> a == <span class="number">1</span> <span class="keyword">or</span> a % <span class="number">2</span>:</span><br><span class="line">            b += <span class="string">"1"</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            b += <span class="string">"0"</span></span><br><span class="line">        a = a // <span class="number">2</span></span><br><span class="line">    <span class="keyword">return</span> b[::<span class="number">-1</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(_(a))</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/后端/">后端</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
-    </div>
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-<!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/love.js"></script>
-
-
-
-
-  
-    <article id="post-interview/加密协议" class="article article-type-post" itemscope="" itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2020/03/17/interview/加密协议/" class="article-date">
-      <time datetime="2020-03-16T16:00:00.000Z" itemprop="datePublished">2020-03-17</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/17/interview/加密协议/">RSA签名和加密的区别</a>
-    </h1>
-  
-
-		 
-        
-           <div style="margin-top:10px;">
-    <span class="post-time">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-keyboard-o"></i>
-        <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">362字</span>
-      </span>
-    </span>
-
-    <span class="post-time">
-      &nbsp; | &nbsp;
-      <span class="post-meta-item-icon">
-        <i class="fa fa-hourglass-half"></i>
-        <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">1分</span>
-      </span>
-    </span>
-</div>
-        
-        
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>RSA加密是一种非对称加密。可以在不直接传递密钥的情况下，完成解密。这能够确保信息的安全性，避免了直接传递密钥所造成的被破解的风险。是由一对密钥来进行加解密的过程，分别称为公钥和私钥。两者之间有数学相关，该加密算法的原理就是对一极大整数做因数分解的困难性来保证安全性。通常个人保存私钥，公钥是公开的（可能同时多人持有）<br>
-          
-      
-    </p></div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/后端/">后端</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/安全协议/">安全协议</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2020/03/17/interview/加密协议/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-<!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/love.js"></script>
-
-
-
-
-  
-    <article id="post-java/线程池的简单使用" class="article article-type-post" itemscope="" itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2019/01/19/java/线程池的简单使用/" class="article-date">
-      <time datetime="2019-01-18T16:00:00.000Z" itemprop="datePublished">2019-01-19</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/19/java/线程池的简单使用/">springboot中线程池的使用</a>
-    </h1>
-  
-
-		 
-        
-           <div style="margin-top:10px;">
-    <span class="post-time">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-keyboard-o"></i>
-        <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">1,399字</span>
-      </span>
-    </span>
-
-    <span class="post-time">
-      &nbsp; | &nbsp;
-      <span class="post-meta-item-icon">
-        <i class="fa fa-hourglass-half"></i>
-        <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">6分</span>
-      </span>
-    </span>
-</div>
-        
-        
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>Java给多线程编程提供了内置的支持。,一条线程指的是进程中一个单一顺序的控制流,一个进程中可以并发多个线程,每条线程并行执行不同的任务,能满足程序员编写高效率的程序来达到充分利用 CPU 的目的,实现多线程的方法有四种，继承Thread类，实现Runable接口，Callable接口，或者从线程池中获取。<br>
-          
-      
-    </p></div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/后端/">后端</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/springboot/">springboot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/多线程/">多线程</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/线程池/">线程池</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2019/01/19/java/线程池的简单使用/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-<!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/love.js"></script>
-
-
-
-
-  
-    <article id="post-java/activemq的安装和使用" class="article article-type-post" itemscope="" itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/12/19/java/activemq的安装和使用/" class="article-date">
-      <time datetime="2018-12-18T16:00:00.000Z" itemprop="datePublished">2018-12-19</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/12/19/java/activemq的安装和使用/">消息中间件之Activemq</a>
-    </h1>
-  
-
-		 
-        
-           <div style="margin-top:10px;">
-    <span class="post-time">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-keyboard-o"></i>
-        <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">1,666字</span>
-      </span>
-    </span>
-
-    <span class="post-time">
-      &nbsp; | &nbsp;
-      <span class="post-meta-item-icon">
-        <i class="fa fa-hourglass-half"></i>
-        <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">7分</span>
-      </span>
-    </span>
-</div>
-        
-        
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>消息中间件就是用于系统之间消息传输的一类软件，一般用于处理分布式应用中业务的解耦，拓展，异步通知，日志分析，数据复制等等。</p>
-<h1 id="消息中间件示意图"><a href="#消息中间件示意图" class="headerlink" title="消息中间件示意图"></a>消息中间件示意图</h1><p><img width="500" height="300" src="/img/java/mq/1.png"><br>
-          
-      
-    </p></div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/后端/">后端</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/activemq/">activemq</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/消息中间件/">消息中间件</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2018/12/19/java/activemq的安装和使用/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-<!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/love.js"></script>
-
-
-
-
-  
-    <article id="post-java/docker入门" class="article article-type-post" itemscope="" itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/12/19/java/docker入门/" class="article-date">
-      <time datetime="2018-12-18T16:00:00.000Z" itemprop="datePublished">2018-12-19</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/12/19/java/docker入门/">Docker简介</a>
-    </h1>
-  
-
-		 
-        
-           <div style="margin-top:10px;">
-    <span class="post-time">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-keyboard-o"></i>
-        <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">4,621字</span>
-      </span>
-    </span>
-
-    <span class="post-time">
-      &nbsp; | &nbsp;
-      <span class="post-meta-item-icon">
-        <i class="fa fa-hourglass-half"></i>
-        <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">18分</span>
-      </span>
-    </span>
-</div>
-        
-        
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h1 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h1><p>学习目标：</p>
-<ul>
-<li>掌握Docker基础知识，能够理解Docker镜像与容器的概念</li>
-<li>完成Docker安装与启动</li>
-<li>掌握Docker镜像与容器相关命令
-          
-      
-    </li></ul></div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/后端/">后端</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/">Docker</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2018/12/19/java/docker入门/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-<!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/love.js"></script>
-
-
-
-
-  
-    <article id="post-life/塘栖古镇一日游" class="article article-type-post" itemscope="" itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/12/01/life/塘栖古镇一日游/" class="article-date">
-      <time datetime="2018-11-30T16:00:00.000Z" itemprop="datePublished">2018-12-01</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/12/01/life/塘栖古镇一日游/">塘栖古镇一日游</a>
-    </h1>
-  
-
-		 
-        
-           <div style="margin-top:10px;">
-    <span class="post-time">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-keyboard-o"></i>
-        <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">1,365字</span>
-      </span>
-    </span>
-
-    <span class="post-time">
-      &nbsp; | &nbsp;
-      <span class="post-meta-item-icon">
-        <i class="fa fa-hourglass-half"></i>
-        <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">5分</span>
-      </span>
-    </span>
-</div>
-        
-        
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>大概从小时候起，就被课本里的江南风景深深吸引，那种小桥流水人家的惬意生活，那种梅雨时节的小镇巷弄，让我这个北方的小伙魂牵梦萦，心驰神往，时常幻想着自己一个人走在那雨巷中，撑着油纸伞，戴着耳机听着林俊杰的<a href="https://www.baidu.com/link?url=60sS3CXAsCTwIB8CGujcXudYyzQazqVcL3YMVDYG8xwcMhSmAgc-3tYhpZG7CR7ZpPZQ1B7ZwIq9cn3azCdHOa&amp;wd=&amp;eqid=bdef5c670002caf8000000065c026162" target="_blank" rel="noopener">&lt;江南&gt;</a>，恰逢遇到那戴望舒没有遇到的丁香般的姑娘，那该是多么美好的画面呀。长大后有幸来到这边工作，每逢周末，时常会去感受一下江南的风土人情。<br>
-          
-      
-    </p></div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/个人笔记/">个人笔记</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/旅游/">旅游</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2018/12/01/life/塘栖古镇一日游/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-<!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/love.js"></script>
-
-
-
-
-  
-    <article id="post-java/java实现csv文件的导出" class="article article-type-post" itemscope="" itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/08/19/java/java实现csv文件的导出/" class="article-date">
-      <time datetime="2018-08-18T16:00:00.000Z" itemprop="datePublished">2018-08-19</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/08/19/java/java实现csv文件的导出/">java中导出csv类型文件</a>
-    </h1>
-  
-
-		 
-        
-           <div style="margin-top:10px;">
-    <span class="post-time">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-keyboard-o"></i>
-        <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">1,009字</span>
-      </span>
-    </span>
-
-    <span class="post-time">
-      &nbsp; | &nbsp;
-      <span class="post-meta-item-icon">
-        <i class="fa fa-hourglass-half"></i>
-        <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">5分</span>
-      </span>
-    </span>
-</div>
-        
-        
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>为什么要选择导出csv文件<br><a href="https://baike.baidu.com/item/CSV/10739?fr=aladdin" target="_blank" rel="noopener">csv</a>文件的特点主要有以下几个：<br>1.文件结构简单，基本上和文本的差别不大；<br>2.可以和microExcle进行转换，这是一个很大的优点，很容易进行察看模式转换，但是如果你同样的csv文件和将其转换成xls文件后的size比较就更加明白他在size上的优势了。<br>3.由于其简单的存储方式，一方面可以减少存储信息的容量，这样有利于网络传输以及客户端的再处 理；同时由于是一堆没有任何说明的数据，具备基本的安全性。</p>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/后端/">后端</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/export/">export</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2018/08/19/java/java实现csv文件的导出/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-<!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/love.js"></script>
-
-
-
-
-  
-    <article id="post-java/jwt实现安全登录" class="article article-type-post" itemscope="" itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/08/12/java/jwt实现安全登录/" class="article-date">
-      <time datetime="2018-08-11T16:00:00.000Z" itemprop="datePublished">2018-08-12</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/08/12/java/jwt实现安全登录/">JWT实现安全登陆</a>
-    </h1>
-  
-
-		 
-        
-           <div style="margin-top:10px;">
-    <span class="post-time">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-keyboard-o"></i>
-        <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">1,536字</span>
-      </span>
-    </span>
-
-    <span class="post-time">
-      &nbsp; | &nbsp;
-      <span class="post-meta-item-icon">
-        <i class="fa fa-hourglass-half"></i>
-        <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">6分</span>
-      </span>
-    </span>
-</div>
-        
-        
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h1 id="1-传统的Session认证及其不足"><a href="#1-传统的Session认证及其不足" class="headerlink" title="1:传统的Session认证及其不足"></a><font face="STCAIYUN" color="#8B008B">1:传统的Session认证及其不足</font></h1><p>http协议本身是一种无状态的协议，而这就意味着如果用户向我们的应用提供了用户名和密码来进行用户认证，那么下一次请求时，用户还要再一次进行用户认证才行，因为根据http协议，我们并不能知道是哪个用户发出的请求，所以为了让我们的应用能识别是哪个用户发出的请求，我们只能在服务器存储一份用户登录的信息，这份登录信息会在响应时传递给浏览器，告诉其保存为cookie,以便下次请求时发送给我们的应用，这样我们的应用就能识别请求来自哪个用户了,这就是传统的基于session认证，但是随着用户的增多，我们Session中储存的记录也就越来越多，通常来说，Session都是储存在内存之中，因此会极大的增加服务器的开销,</p>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/后端/">后端</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JWT/">JWT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2018/08/12/java/jwt实现安全登录/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-<!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/love.js"></script>
-
-
-
-
-  
-    <article id="post-java/swagger接口文档的使用" class="article article-type-post" itemscope="" itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/08/05/java/swagger接口文档的使用/" class="article-date">
-      <time datetime="2018-08-04T16:00:00.000Z" itemprop="datePublished">2018-08-05</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/08/05/java/swagger接口文档的使用/">Swagger在线接口文档</a>
-    </h1>
-  
-
-		 
-        
-           <div style="margin-top:10px;">
-    <span class="post-time">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-keyboard-o"></i>
-        <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">876字</span>
-      </span>
-    </span>
-
-    <span class="post-time">
-      &nbsp; | &nbsp;
-      <span class="post-meta-item-icon">
-        <i class="fa fa-hourglass-half"></i>
-        <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">4分</span>
-      </span>
-    </span>
-</div>
-        
-        
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>随着互联网技术的发展，现在的网站架构基本都由原来的后端渲染，变成了：前端渲染、先后端分离的形态，而且前端技术和后端技术在各自的道路上越走越远。前端和后端的唯一联系，变成了API接口；API文档变成了前后端开发人员联系的纽带，变得越来越重要，swagger就是一款让你更好的书写API文档的框架。</p>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/后端/">后端</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swagger/">swagger</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2018/08/05/java/swagger接口文档的使用/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-<!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/love.js"></script>
-
-
-
-
-  
-  
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-    </nav>
-  
-</div>
-      <footer id="footer">
-<script>
-    var now = new Date(); 
-    function createtime() { 
-        var grt= new Date("05/19/2018 12:49:00");//此处修改你的建站时间或者网站上线时间 
-        now.setTime(now.getTime()+250); 
-        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
-        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
-        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
-        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
-        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
-        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
-        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
-        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
-    } 
-setInterval("createtime()",250);
-</script>
-    <div class="outer">
-        <div id="footer-info">
-            <div class="footer-left">
-                <i class="fa fa-copyright"></i> 
-                2018-2021 王霄
-            </div>
-            <div class="footer-right">
-                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  主题 <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> 来自作者<a href="http://moxfive.xyz/2015/08/20/blog-building/"> MOxFIVE</a> <i class="fa fa-heart animated infinite pulse"></i>
-            </div>
+    <div id="header">
+        <div>
+            <a class="image-logo" href="/"></a>
+			
+			<div class="iconfont icon-search switchsearch" href="/search/" title="搜索"></div>
+			
+            <div class="iconfont icon-menu switchmenu"></div>
         </div>
-        
-            <div class="visit">
-                
-                    <span id="busuanzi_container_site_pv" style="display:none">
-                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
-                        </span>
-                    </span>
-                
-                
-                    <span>| </span>
-                
-                
-                    <span id="busuanzi_container_page_pv" style="display:none">
-                        <span id="page-visit" title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
-                        </span>
-                    </span>
-                
-                <span id="timeDate"></span><span id="times"></span>
-            </div>
-        
-    </div>
-</footer>
     </div>
     
-    <script src="/js/GithubRepoWidget.js"></script>
-
-<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
-
-    <script>
-        $(document).ready(function() {
-            var iPad = window.navigator.userAgent.indexOf('iPad');
-            if (iPad > -1 || $(".left-col").css("display") === "none") {
-                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
-                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
-                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
-            }
-            else {
-                var backgroundnum = 6;
-                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
-                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
-            }
-        })
-    </script>
-
-
+    <div id="post0">
+        <p>五月 05, 2020</p>
+        <h2><a href="/2020/05/05/algorithm/排序算法/" title="几种经典的排序算法" class="posttitle">几种经典的排序算法</a></h2>
+        <p class="summary">1.选择排序工作原理：首先在未排序序列中找到最小（大）元素，存放到排序序列的起始位置，然后，再从剩余未排序元素中继...</p>
+    </div>
     
-
-     
-
-
-
-
-    <script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-    tex2jax: {
-        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-        processEscapes: true,
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    }
-});
-
-MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
-});
-</script>
-
-<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-
-
-<div class="scroll" id="scroll">
-    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
-    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
-    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
 </div>
-<script>
-    // Open in New Window
-    
-        var oOpenInNew = {
-             github: ".github-widget a", 
-            
-            
-            
-            
-            
-             archives: ".archive-article-title", 
-             miniArchives: "a.post-list-link", 
-             menu: ".header-menu a", 
-             friends: "#js-friends a", 
-             socail: ".social a" 
-        }
-        for (var x in oOpenInNew) {
-            $(oOpenInNew[x]).attr("target", "_blank");
-        }
-    
-</script>
 
-    <script>
-        var originTitle = document.title;
-        var titleTime;
-        document.addEventListener("visibilitychange", function() {
-            if (document.hidden) {
-                document.title = "开心" + originTitle;
-                clearTimeout(titleTime);
-            }
-            else {
-                document.title = "不开心" + originTitle;
-                titleTime = setTimeout(function() {
-                    document.title = originTitle;
-                }, 2000);
-            }
-        })
-    </script>
+    <div id="primary">
+        
+<div class="post">
+    <a href="/2020/05/01/algorithm/十进制转换为二进制算法/" title="十进制数字转换为二进制">
+        <img src="/img/welcome-cover.jpg" class="cover" width="680" height="440">
+    </a>
+    <div class="else">
+        <p>五月 01, 2020</p>
+        <h3><a href="/2020/05/01/algorithm/十进制转换为二进制算法/" title="十进制数字转换为二进制" class="posttitle">十进制数字转换为二进制</a></h3>
+        <p>123456789101112131415a = int(input('请输入要转换的数：'))def _(a: int):    b = ''    w...</p>
+    </div>
+</div>
 
-<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
-</script>
-  </div>
+
+<div class="post">
+    <a href="/2020/03/17/interview/加密协议/" title="RSA签名和加密的区别">
+        <img src="/img/cover.jpg" class="cover" width="680" height="440">
+    </a>
+    <div class="else">
+        <p>三月 17, 2020</p>
+        <h3><a href="/2020/03/17/interview/加密协议/" title="RSA签名和加密的区别" class="posttitle">RSA签名和加密的区别</a></h3>
+        <p>RSA加密是一种非对称加密。可以在不直接传递密钥的情况下，完成解密。这能够确保信息的安全性，避免了直接传递密钥所造成的被破解的风险。是由一对密钥来进行加解...</p>
+    </div>
+</div>
+
+
+<div class="post">
+    <a href="/2019/01/19/java/线程池的简单使用/" title="springboot中线程池的使用">
+        <img src="/img/welcome-cover.jpg" class="cover" width="680" height="440">
+    </a>
+    <div class="else">
+        <p>一月 19, 2019</p>
+        <h3><a href="/2019/01/19/java/线程池的简单使用/" title="springboot中线程池的使用" class="posttitle">springboot中线程池的使用</a></h3>
+        <p>Java给多线程编程提供了内置的支持。,一条线程指的是进程中一个单一顺序的控制流,一个进程中可以并发多个线程,每条线程并行执行不同的任务,能满足程序员编写...</p>
+    </div>
+</div>
+
+
+<div class="post">
+    <a href="/2018/12/19/java/activemq的安装和使用/" title="消息中间件之Activemq">
+        <img src="/img/welcome-cover.jpg" class="cover" width="680" height="440">
+    </a>
+    <div class="else">
+        <p>十二月 19, 2018</p>
+        <h3><a href="/2018/12/19/java/activemq的安装和使用/" title="消息中间件之Activemq" class="posttitle">消息中间件之Activemq</a></h3>
+        <p>消息中间件就是用于系统之间消息传输的一类软件，一般用于处理分布式应用中业务的解耦，拓展，异步通知，日志分析，数据复制等等。
+消息中间件示意图在java中有...</p>
+    </div>
+</div>
+
+
+<div class="post">
+    <a href="/2018/12/19/java/docker入门/" title="Docker简介">
+        <img src="/img/welcome-cover.jpg" class="cover" width="680" height="440">
+    </a>
+    <div class="else">
+        <p>十二月 19, 2018</p>
+        <h3><a href="/2018/12/19/java/docker入门/" title="Docker简介" class="posttitle">Docker简介</a></h3>
+        <p>Docker学习目标：
+
+掌握Docker基础知识，能够理解Docker镜像与容器的概念
+完成Docker安装与启动
+掌握Docker镜像与容器相关命令
+...</p>
+    </div>
+</div>
+
+
+<div class="post">
+    <a href="/2018/12/01/life/塘栖古镇一日游/" title="塘栖古镇一日游">
+        <img src="/img/cover.jpg" class="cover" width="680" height="440">
+    </a>
+    <div class="else">
+        <p>十二月 01, 2018</p>
+        <h3><a href="/2018/12/01/life/塘栖古镇一日游/" title="塘栖古镇一日游" class="posttitle">塘栖古镇一日游</a></h3>
+        <p>大概从小时候起，就被课本里的江南风景深深吸引，那种小桥流水人家的惬意生活，那种梅雨时节的小镇巷弄，让我这个北方的小伙魂牵梦萦，心驰神往，时常幻想着自己一个...</p>
+    </div>
+</div>
+
+
+<div class="post">
+    <a href="/2018/08/19/java/java实现csv文件的导出/" title="java中导出csv类型文件">
+        <img src="/img/cover.jpg" class="cover" width="680" height="440">
+    </a>
+    <div class="else">
+        <p>八月 19, 2018</p>
+        <h3><a href="/2018/08/19/java/java实现csv文件的导出/" title="java中导出csv类型文件" class="posttitle">java中导出csv类型文件</a></h3>
+        <p>为什么要选择导出csv文件csv文件的特点主要有以下几个：1.文件结构简单，基本上和文本的差别不大；2.可以和microExcle进行转换，这是一个很大的...</p>
+    </div>
+</div>
+
+
+<div class="post">
+    <a href="/2018/08/12/java/jwt实现安全登录/" title="JWT实现安全登陆">
+        <img src="/img/welcome-cover.jpg" class="cover" width="680" height="440">
+    </a>
+    <div class="else">
+        <p>八月 12, 2018</p>
+        <h3><a href="/2018/08/12/java/jwt实现安全登录/" title="JWT实现安全登陆" class="posttitle">JWT实现安全登陆</a></h3>
+        <p>1:传统的Session认证及其不足http协议本身是一种无状态的协议，而这就意味着如果用户向我们的应用提供了用户名和密码来进行用户认证，那么下一次请求时...</p>
+    </div>
+</div>
+
+
+<div class="post">
+    <a href="/2018/08/05/java/swagger接口文档的使用/" title="Swagger在线接口文档">
+        <img src="/img/welcome-cover.jpg" class="cover" width="680" height="440">
+    </a>
+    <div class="else">
+        <p>八月 05, 2018</p>
+        <h3><a href="/2018/08/05/java/swagger接口文档的使用/" title="Swagger在线接口文档" class="posttitle">Swagger在线接口文档</a></h3>
+        <p>随着互联网技术的发展，现在的网站架构基本都由原来的后端渲染，变成了：前端渲染、先后端分离的形态，而且前端技术和后端技术在各自的道路上越走越远。前端和后端的...</p>
+    </div>
+</div>
+
+
+    </div>
+    
+    <div id="pager"><a href="/page/2/" class="more">加载更多</a></div>
+    
+</div>
+<div id="preview"></div>
+
+
+
 </body>
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
 </html>
