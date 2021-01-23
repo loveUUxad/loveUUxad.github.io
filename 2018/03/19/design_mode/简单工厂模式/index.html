@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-<head>
+<html lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
 
     <!--[if lt IE 9]>
         <style>body {display: none; background: none !important} </style>
@@ -8,29 +8,29 @@
     <![endif]-->
 
 <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<meta name="format-detection" content="telephone=no" />
-<meta name="author" content="王霄" />
+<meta name="format-detection" content="telephone=no">
+<meta name="author" content="王霄">
 
 
 
 <meta name="description" content="简单工厂模式简介工厂模式是Java中最常用的设计模式之一。这种类型的设计模式属于创建型模式，它提供了一种创建对象的最佳方式。在工厂模式中，我们在创建对象时不会对客户端暴露创建逻辑，并且是通过使用一个共同的接口来指向新创建的对象,spring中的IOC思想便是沿用了这一设计模式。">
+<meta name="keywords" content="java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="设计模式之简单工厂模式">
-<meta property="og:url" content="http://example.com/2018/03/19/design_mode/%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/index.html">
+<meta property="og:url" content="www.wagnxiao.top/2018/03/19/design_mode/简单工厂模式/index.html">
 <meta property="og:site_name" content="WX">
 <meta property="og:description" content="简单工厂模式简介工厂模式是Java中最常用的设计模式之一。这种类型的设计模式属于创建型模式，它提供了一种创建对象的最佳方式。在工厂模式中，我们在创建对象时不会对客户端暴露创建逻辑，并且是通过使用一个共同的接口来指向新创建的对象,spring中的IOC思想便是沿用了这一设计模式。">
-<meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/img/java/design/1.png">
-<meta property="article:published_time" content="2018-03-18T16:00:00.000Z">
-<meta property="article:modified_time" content="2021-01-10T01:56:26.777Z">
-<meta property="article:author" content="王霄">
-<meta property="article:tag" content="java">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="/img/java/design/1.png">
+<meta property="og:updated_time" content="2021-01-10T01:56:26.777Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/img/java/design/1.png">
+<meta name="twitter:title" content="设计模式之简单工厂模式">
+<meta name="twitter:description" content="简单工厂模式简介工厂模式是Java中最常用的设计模式之一。这种类型的设计模式属于创建型模式，它提供了一种创建对象的最佳方式。在工厂模式中，我们在创建对象时不会对客户端暴露创建逻辑，并且是通过使用一个共同的接口来指向新创建的对象,spring中的IOC思想便是沿用了这一设计模式。">
+<meta name="twitter:image" content="/img/java/design/1.png">
 
-<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
 
     <link rel="alternate" href="/atom.xml" title="WX" type="application/atom+xml">
@@ -53,9 +53,7 @@
     <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
 
 
-
 <link rel="stylesheet" href="/css/style.css">
-
 
 
 
@@ -96,7 +94,7 @@
 
 
 
-<meta name="generator" content="Hexo 5.3.0"></head>
+</head></html>
 <body>
   <div id="container">
     <div class="left-col">
@@ -116,11 +114,11 @@
 
         
             <form id="search-form">
-            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false">
             <i class="fa fa-times" onclick="resetSearch()"></i>
             </form>
             <div id="local-search-result"></div>
-            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+            <p class="no-result">No results found <i class="fa fa-spinner fa-pulse"></i></p>
         
 
 
@@ -188,9 +186,9 @@
                             
                                 <a class="fa Email" href="mailto:&#49;&#48;&#51;&#51;&#49;&#51;&#54;&#57;&#54;&#55;&#64;&#113;&#113;&#46;&#99;&#111;&#109;" title="Email"></a>
                             
-                                <a class="fa GitHub" target="_blank" rel="noopener" href="https://github.com/loveUUxad" title="GitHub"></a>
+                                <a class="fa GitHub" href="https://github.com/loveUUxad" title="GitHub"></a>
                             
-                                <a class="fa Gitee" target="_blank" rel="noopener" href="https://gitee.com/loveUUxad" title="Gitee"></a>
+                                <a class="fa Gitee" href="https://gitee.com/loveUUxad" title="Gitee"></a>
                             
                         </ul>
                     </nav>
@@ -199,7 +197,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springboot/" rel="tag">springboot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F/" rel="tag">排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%83%A8%E7%BD%B2/" rel="tag">部署</a></li></ul>
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/排序/">排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/旅游/">旅游</a></li></ul>
                     </div>
                 </section>
                 
@@ -208,11 +206,11 @@
                 <section class="switch-part switch-part3">
                     <div id="js-friends">
                     
-                      <a class="main-nav-link switch-friends-link" target="_blank" rel="noopener" href="https://hexo.io">Hexo</a>
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
                     
-                      <a class="main-nav-link switch-friends-link" target="_blank" rel="noopener" href="https://github.com/loveUUxad">GitHub</a>
+                      <a class="main-nav-link switch-friends-link" href="https://github.com/loveUUxad">GitHub</a>
                     
-                      <a class="main-nav-link switch-friends-link" target="_blank" rel="noopener" href="http://moxfive.xyz/">MOxFIVE</a>
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
                     
                     </div>
                 </section>
@@ -274,12 +272,12 @@
             </nav>
         </header>                
     </div>
-    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我">
 </nav>
-      <div class="body-wrap"><article id="post-design_mode/简单工厂模式" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-design_mode/简单工厂模式" class="article article-type-post" itemscope="" itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/03/19/design_mode/%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" class="article-date">
+      <a href="/2018/03/19/design_mode/简单工厂模式/" class="article-date">
       <time datetime="2018-03-18T16:00:00.000Z" itemprop="datePublished">2018-03-19</time>
 </a>
 
@@ -288,7 +286,7 @@
   
   <div class="article-inner">
     
-      <input type="hidden" class="isFancy" />
+      <input type="hidden" class="isFancy">
     
     
       <header class="article-header">
@@ -304,13 +302,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+    <a class="article-category-link" href="/categories/设计模式/">设计模式</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/" rel="tag">java</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -320,40 +318,36 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h1 id="简单工厂模式简介"><a href="#简单工厂模式简介" class="headerlink" title="简单工厂模式简介"></a><font face="STCAIYUN" color='#8B008B'>简单工厂模式简介</font></h1><p>工厂模式是Java中最常用的设计模式之一。这种类型的设计模式属于创建型模式，它提供了一种创建对象的最佳方式。在工厂模式中，我们在创建对象时不会对客户端暴露创建逻辑，并且是通过使用一个共同的接口来指向新创建的对象,spring中的IOC思想便是沿用了这一设计模式。</p>
-<a id="more"></a>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">一般来说简单工厂模式由三部分组成</span><br></pre></td></tr></table></figure>
+        <h1 id="简单工厂模式简介"><a href="#简单工厂模式简介" class="headerlink" title="简单工厂模式简介"></a><font face="STCAIYUN" color="#8B008B">简单工厂模式简介</font></h1><p>工厂模式是Java中最常用的设计模式之一。这种类型的设计模式属于创建型模式，它提供了一种创建对象的最佳方式。在工厂模式中，我们在创建对象时不会对客户端暴露创建逻辑，并且是通过使用一个共同的接口来指向新创建的对象,spring中的IOC思想便是沿用了这一设计模式。<br><a id="more"></a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">一般来说简单工厂模式由三部分组成</span><br></pre></td></tr></table></figure></p>
 <ul>
 <li>工厂类：工厂类是我们的核心类，它负责创建所有实例的内部逻辑，工厂类可以直接被调用创建我们的产品实例。</li>
 <li>抽象产品类：简单工厂模式所创建的所有对象的父类，它负责描述所有实例所拥有的公共接口。</li>
 <li>具体产品类：简单工厂所创建的具体的实例对象。</li>
 </ul>
-<h1 id="实例模拟"><a href="#实例模拟" class="headerlink" title="实例模拟"></a><font face="STCAIYUN" color='#8B008B'>实例模拟</font></h1><p>现在有一个汽车工厂，生产各种款式的轿车，我们买车的时候只需要告诉对方需要买什么种类的车子，工厂就会为我们造好，而我不需要去关心他们是怎样实现的。</p>
+<h1 id="实例模拟"><a href="#实例模拟" class="headerlink" title="实例模拟"></a><font face="STCAIYUN" color="#8B008B">实例模拟</font></h1><p>现在有一个汽车工厂，生产各种款式的轿车，我们买车的时候只需要告诉对方需要买什么种类的车子，工厂就会为我们造好，而我不需要去关心他们是怎样实现的。</p>
 <h3 id="先定义一个生产汽车的抽象接口，它的实现类可选择生产那种汽车"><a href="#先定义一个生产汽车的抽象接口，它的实现类可选择生产那种汽车" class="headerlink" title="先定义一个生产汽车的抽象接口，它的实现类可选择生产那种汽车"></a>先定义一个生产汽车的抽象接口，它的实现类可选择生产那种汽车</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Car</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 造车方法</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">creat</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="然后添加两个生产汽车的具体实现类"><a href="#然后添加两个生产汽车的具体实现类" class="headerlink" title="然后添加两个生产汽车的具体实现类"></a>然后添加两个生产汽车的具体实现类</h3><blockquote>
-<p>生产奥迪车</p>
+<p>生产奥迪车<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AodiCar</span> <span class="keyword">implements</span> <span class="title">Car</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">creat</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"奥迪车造好了"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AodiCar</span> <span class="keyword">implements</span> <span class="title">Car</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">creat</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;奥迪车造好了&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>生产宝马车</p>
+<p>生产宝马车<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BmwCar</span> <span class="keyword">implements</span> <span class="title">Car</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">creat</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"宝马车造好了"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BmwCar</span> <span class="keyword">implements</span> <span class="title">Car</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">creat</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;宝马车造好了&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="接下来就是我们的汽车工厂了"><a href="#接下来就是我们的汽车工厂了" class="headerlink" title="接下来就是我们的汽车工厂了"></a>接下来就是我们的汽车工厂了</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CarFactory</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Car <span class="title">getCar</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">switch</span> (message) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;宝马&quot;</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> BmwCar();</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;奥迪&quot;</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> AodiCar();</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="客户端进行买车"><a href="#客户端进行买车" class="headerlink" title="客户端进行买车"></a>客户端进行买车</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Customer</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        CarFactory.getCar(<span class="string">&quot;宝马&quot;</span>).creat();</span><br><span class="line">        CarFactory.getCar(<span class="string">&quot;奥迪&quot;</span>).creat();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="接下来就是我们的汽车工厂了"><a href="#接下来就是我们的汽车工厂了" class="headerlink" title="接下来就是我们的汽车工厂了"></a>接下来就是我们的汽车工厂了</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CarFactory</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Car <span class="title">getCar</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">switch</span> (message) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"宝马"</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> BmwCar();</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"奥迪"</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> AodiCar();</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="客户端进行买车"><a href="#客户端进行买车" class="headerlink" title="客户端进行买车"></a>客户端进行买车</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Customer</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        CarFactory.getCar(<span class="string">"宝马"</span>).creat();</span><br><span class="line">        CarFactory.getCar(<span class="string">"奥迪"</span>).creat();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>结果如下<br><img width="250" height="100" src="/img/java/design/1.png" /></br></p>
+<p>结果如下<br><img width="250" height="100" src="/img/java/design/1.png"><br></p>
 </blockquote>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a><font face="STCAIYUN" color='#8B008B'>总结</font></h1><blockquote>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a><font face="STCAIYUN" color="#8B008B">总结</font></h1><blockquote>
 <p>特点</p>
-</blockquote>
 <ul>
 <li>所创建对象的权利交给工厂统一管理。 (优点)</li>
 <li>一个调用者想创建一个对象，只要知道其名称就可以了。(优点)</li>
 <li>屏蔽产品的具体实现，调用者只关心产品的接口。(优点)</li>
 </ul>
+</blockquote>
 <p>但是此时如果我们需要买一辆大众车，上面的代码应该如何更改</p>
-<h3 id="应当先提供一个创造大众车的实现类"><a href="#应当先提供一个创造大众车的实现类" class="headerlink" title="应当先提供一个创造大众车的实现类"></a>应当先提供一个创造大众车的实现类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DZCar</span> <span class="keyword">implements</span> <span class="title">Car</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">creat</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;大众车造好了&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="再修改汽车工厂的代码"><a href="#再修改汽车工厂的代码" class="headerlink" title="再修改汽车工厂的代码"></a>再修改汽车工厂的代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CarFactory</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Car <span class="title">getCar</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">switch</span> (message) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;宝马&quot;</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> BmwCar();</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;奥迪&quot;</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> AodiCar();</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;大众&quot;</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> DZCar();</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="应当先提供一个创造大众车的实现类"><a href="#应当先提供一个创造大众车的实现类" class="headerlink" title="应当先提供一个创造大众车的实现类"></a>应当先提供一个创造大众车的实现类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DZCar</span> <span class="keyword">implements</span> <span class="title">Car</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">creat</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"大众车造好了"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="再修改汽车工厂的代码"><a href="#再修改汽车工厂的代码" class="headerlink" title="再修改汽车工厂的代码"></a>再修改汽车工厂的代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CarFactory</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Car <span class="title">getCar</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">switch</span> (message) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"宝马"</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> BmwCar();</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"奥迪"</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> AodiCar();</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"大众"</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> DZCar();</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
 <li>不难看出这样的好处是扩展性高，我在增加一个功能的时候，只需编写其实现子类即可，不会影响到其他功能（优点）</li>
 <li>但是每次添加新功能的时候需要修改我们工厂里面的代码逻辑对维护不利（缺点）</li>
@@ -366,17 +360,17 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2018/03/19/design_mode/%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/">设计模式之简单工厂模式</a></p>
+        <p><span>本文标题:</span><a href="/2018/03/19/design_mode/简单工厂模式/">设计模式之简单工厂模式</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">王霄</a></p>
         <p><span>发布时间:</span>2018-03-19, 00:00:00</p>
         <p><span>最后更新:</span>2021-01-10, 09:56:26</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2018/03/19/design_mode/%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" title="设计模式之简单工厂模式">http://example.com/2018/03/19/design_mode/%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://example.com/2018/03/19/design_mode/%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/　　作者: 王霄" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2018/03/19/design_mode/简单工厂模式/" title="设计模式之简单工厂模式">www.wagnxiao.top/2018/03/19/design_mode/简单工厂模式/</a>
+            <span class="copy-path" data-clipboard-text="原文: www.wagnxiao.top/2018/03/19/design_mode/简单工厂模式/　　作者: 王霄" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
-            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target="_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
         </p>
     </div>
 
@@ -385,14 +379,14 @@
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2018/03/20/design_mode/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/">
+                <a href="/2018/03/20/design_mode/工厂方法模式/">
                     设计模式之工厂方法模式
                 </a>
             </div>
         
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2018/03/18/design_mode/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">
+                <a href="/2018/03/18/design_mode/单例模式/">
                     设计模式之单例模式
                 </a>
             </div>
@@ -405,7 +399,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">简单工厂模式简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B%E6%A8%A1%E6%8B%9F"><span class="toc-number">2.</span> <span class="toc-text">实例模拟</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%88%E5%AE%9A%E4%B9%89%E4%B8%80%E4%B8%AA%E7%94%9F%E4%BA%A7%E6%B1%BD%E8%BD%A6%E7%9A%84%E6%8A%BD%E8%B1%A1%E6%8E%A5%E5%8F%A3%EF%BC%8C%E5%AE%83%E7%9A%84%E5%AE%9E%E7%8E%B0%E7%B1%BB%E5%8F%AF%E9%80%89%E6%8B%A9%E7%94%9F%E4%BA%A7%E9%82%A3%E7%A7%8D%E6%B1%BD%E8%BD%A6"><span class="toc-number">2.0.1.</span> <span class="toc-text">先定义一个生产汽车的抽象接口，它的实现类可选择生产那种汽车</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%84%B6%E5%90%8E%E6%B7%BB%E5%8A%A0%E4%B8%A4%E4%B8%AA%E7%94%9F%E4%BA%A7%E6%B1%BD%E8%BD%A6%E7%9A%84%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0%E7%B1%BB"><span class="toc-number">2.0.2.</span> <span class="toc-text">然后添加两个生产汽车的具体实现类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A5%E4%B8%8B%E6%9D%A5%E5%B0%B1%E6%98%AF%E6%88%91%E4%BB%AC%E7%9A%84%E6%B1%BD%E8%BD%A6%E5%B7%A5%E5%8E%82%E4%BA%86"><span class="toc-number">2.0.3.</span> <span class="toc-text">接下来就是我们的汽车工厂了</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9B%E8%A1%8C%E4%B9%B0%E8%BD%A6"><span class="toc-number">2.0.4.</span> <span class="toc-text">客户端进行买车</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">3.</span> <span class="toc-text">总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%94%E5%BD%93%E5%85%88%E6%8F%90%E4%BE%9B%E4%B8%80%E4%B8%AA%E5%88%9B%E9%80%A0%E5%A4%A7%E4%BC%97%E8%BD%A6%E7%9A%84%E5%AE%9E%E7%8E%B0%E7%B1%BB"><span class="toc-number">3.0.1.</span> <span class="toc-text">应当先提供一个创造大众车的实现类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%8D%E4%BF%AE%E6%94%B9%E6%B1%BD%E8%BD%A6%E5%B7%A5%E5%8E%82%E7%9A%84%E4%BB%A3%E7%A0%81"><span class="toc-number">3.0.2.</span> <span class="toc-text">再修改汽车工厂的代码</span></a></li></ol></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#简单工厂模式简介"><span class="toc-number">1.</span> <span class="toc-text">简单工厂模式简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#实例模拟"><span class="toc-number">2.</span> <span class="toc-text">实例模拟</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#先定义一个生产汽车的抽象接口，它的实现类可选择生产那种汽车"><span class="toc-number">2.0.1.</span> <span class="toc-text">先定义一个生产汽车的抽象接口，它的实现类可选择生产那种汽车</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#然后添加两个生产汽车的具体实现类"><span class="toc-number">2.0.2.</span> <span class="toc-text">然后添加两个生产汽车的具体实现类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#接下来就是我们的汽车工厂了"><span class="toc-number">2.0.3.</span> <span class="toc-text">接下来就是我们的汽车工厂了</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#客户端进行买车"><span class="toc-number">2.0.4.</span> <span class="toc-text">客户端进行买车</span></a></li></ol></li></ol><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-number">3.</span> <span class="toc-text">总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#应当先提供一个创造大众车的实现类"><span class="toc-number">3.0.1.</span> <span class="toc-text">应当先提供一个创造大众车的实现类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#再修改汽车工厂的代码"><span class="toc-number">3.0.2.</span> <span class="toc-text">再修改汽车工厂的代码</span></a></li></ol></li>
         
     </div>
     <style>
@@ -419,7 +413,7 @@
         }
     </style>
 
-    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+    <input type="button" id="tocButton" value="隐藏目录" title="点击按钮隐藏或者显示文章目录">
 
     <script>
         yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
@@ -440,7 +434,7 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2018/03/20/design_mode/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/" title="上一篇: 设计模式之工厂方法模式">
+            <a href="/2018/03/20/design_mode/工厂方法模式/" title="上一篇: 设计模式之工厂方法模式">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -448,13 +442,13 @@
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2018/03/18/design_mode/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" title="下一篇: 设计模式之单例模式">
+            <a href="/2018/03/18/design_mode/单例模式/" title="下一篇: 设计模式之单例模式">
                 <i class="fa fa-angle-right"></i>
             </a>
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/01/10/springboot%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2/springboot%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2(%E4%B8%80)/">springboot项目部署(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/05/05/algorithm/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">几种经典的排序算法</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/05/01/algorithm/%E5%8D%81%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2%E4%B8%BA%E4%BA%8C%E8%BF%9B%E5%88%B6%E7%AE%97%E6%B3%95/">十进制数字转换为二进制</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/19/docker%E5%85%A5%E9%97%A8/">Docker简介</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/23/design_mode/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/">设计模式之适配器模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/22/design_mode/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/">设计模式之建造者模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/21/design_mode/%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/">设计模式之原型模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/design_mode/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/">设计模式之工厂方法模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/19/design_mode/%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/">设计模式之简单工厂模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/18/design_mode/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">设计模式之单例模式</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/05/05/algorithm/排序算法/">几种经典的排序算法</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/05/01/algorithm/十进制转换为二进制算法/">十进制数字转换为二进制</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/19/docker入门/">Docker简介</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/23/design_mode/适配器模式/">设计模式之适配器模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/22/design_mode/建造者模式/">设计模式之建造者模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/21/design_mode/原型模式/">设计模式之原型模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/design_mode/工厂方法模式/">设计模式之工厂方法模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/19/design_mode/简单工厂模式/">设计模式之简单工厂模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/18/design_mode/单例模式/">设计模式之单例模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/05/memory/">来一波回忆杀</a></li></ul>
 
 
 
@@ -477,7 +471,7 @@
         
             <div class="visit">
                 
-                    <span id="busuanzi_container_site_pv" style='display:none'>
+                    <span id="busuanzi_container_site_pv" style="display:none">
                         <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
                         </span>
                     </span>
@@ -486,8 +480,8 @@
                     <span>| </span>
                 
                 
-                    <span id="busuanzi_container_page_pv" style='display:none'>
-                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                    <span id="busuanzi_container_page_pv" style="display:none">
+                        <span id="page-visit" title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
                         </span>
                     </span>
                 
@@ -497,9 +491,7 @@
 </footer>
     </div>
     
-    
-<script src="/js/GithubRepoWidget.js"></script>
-
+    <script src="/js/GithubRepoWidget.js"></script>
 
 <script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
 
