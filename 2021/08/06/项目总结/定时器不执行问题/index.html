@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="王霄" />
+
+
+
+<meta name="description" content="业务背景 最近生产环境遇到了一个问题,服务运行正常,接口也可以访问,但是项目中一个定时任务突然不执行了,并且没有什么异常信息,这个定时任务是每天执行一次,去请求第三方接口拉取数据,由于不是什么重要的数据,这个问题在3天后才被发现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="定时器不执行问题">
+<meta property="og:url" content="http://example.com/2021/08/06/%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/%E5%AE%9A%E6%97%B6%E5%99%A8%E4%B8%8D%E6%89%A7%E8%A1%8C%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:site_name" content="WX">
+<meta property="og:description" content="业务背景 最近生产环境遇到了一个问题,服务运行正常,接口也可以访问,但是项目中一个定时任务突然不执行了,并且没有什么异常信息,这个定时任务是每天执行一次,去请求第三方接口拉取数据,由于不是什么重要的数据,这个问题在3天后才被发现">
+<meta property="og:locale">
+<meta property="article:published_time" content="2021-08-05T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-01-09T14:51:39.827Z">
+<meta property="article:author" content="王霄">
+<meta property="article:tag" content="WX">
+<meta name="twitter:card" content="summary">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="WX" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="https://wxad.oss-cn-beijing.aliyuncs.com/favicon.ico">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>定时器不执行问题 | WX</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="https://wxad.oss-cn-beijing.aliyuncs.com/psb.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">王霄</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">夏天的风我永远记得</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <!--加滚动条-->
+                    <nav class="header-menu" style="position:relative; height:400px; overflow-y:auto">
+                        <ul style="position:relative; height:400px; overflow-y:auto">
+                            
+                                <li><a href="/">主页</a></li>
+                            
+                                <li><a href="/archives/">所有文章</a></li>
+                            
+                                <li><a href="/tags/">标签云</a></li>
+                            
+                                <li><a href="/about/">关于我</a></li>
+                            
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:&#49;&#48;&#51;&#51;&#49;&#51;&#54;&#57;&#54;&#55;&#64;&#113;&#113;&#46;&#99;&#111;&#109;" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" rel="noopener" href="https://github.com/loveUUxad" title="GitHub"></a>
+                            
+                                <a class="fa Gitee" target="_blank" rel="noopener" href="https://gitee.com/loveUUxad" title="Gitee"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/activemq/" rel="tag">activemq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gitlab/" rel="tag">gitlab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java8/" rel="tag">java8</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" rel="tag">java并发编程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/" rel="tag">java引用类型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jdk%E5%AE%89%E8%A3%85/" rel="tag">jdk安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jmeter/" rel="tag">jmeter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kafka/" rel="tag">kafka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lambda/" rel="tag">lambda</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/" rel="tag">mongodb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nacos/" rel="tag">nacos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nosql/" rel="tag">nosql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rabbitmq/" rel="tag">rabbitmq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rocketmq/" rel="tag">rocketmq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sentinel/" rel="tag">sentinel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springcloud/" rel="tag">springcloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zookeeper/" rel="tag">zookeeper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%A4%E7%89%8C%E6%A1%B6/" rel="tag">令牌桶</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95/" rel="tag">压力测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F/" rel="tag">排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%8D%E5%8A%A1%E9%99%8D%E7%BA%A7/" rel="tag">服务降级</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/" rel="tag">注册中心</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%86%94%E6%96%AD/" rel="tag">熔断</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/" rel="tag">软件安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2/" rel="tag">进制转换</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/" rel="tag">配置中心</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%99%90%E6%B5%81/" rel="tag">限流</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%99%90%E6%B5%81%E6%A1%86%E6%9E%B6/" rel="tag">限流框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2/" rel="tag">项目部署</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" target="_blank" rel="noopener" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" target="_blank" rel="noopener" href="https://github.com/loveUUxad">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" target="_blank" rel="noopener" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">java开发工程师</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">王霄</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="https://wxad.oss-cn-beijing.aliyuncs.com/psb.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">王霄</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">夏天的风我永远记得</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:&#49;&#48;&#51;&#51;&#49;&#51;&#54;&#57;&#54;&#55;&#64;&#113;&#113;&#46;&#99;&#111;&#109;" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/loveUUxad" title="GitHub"></a>
+                            
+                                <a class="fa Gitee" target="_blank" href="https://gitee.com/loveUUxad" title="Gitee"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-项目总结/定时器不执行问题" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2021/08/06/%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/%E5%AE%9A%E6%97%B6%E5%99%A8%E4%B8%8D%E6%89%A7%E8%A1%8C%E9%97%AE%E9%A2%98/" class="article-date">
+      <time datetime="2021-08-05T16:00:00.000Z" itemprop="datePublished">2021-08-06</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      定时器不执行问题
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/">项目总结</a>
+    </div>
+
+
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h3 id="业务背景"><a href="#业务背景" class="headerlink" title="业务背景"></a>业务背景</h3><blockquote>
+<p>最近生产环境遇到了一个问题,服务运行正常,接口也可以访问,但是项目中一个定时任务突然不执行了,并且没有什么异常信息,这个定时任务是每天执行一次,去请求第三方接口拉取数据,由于不是什么重要的数据,这个问题在3天后才被发现</p>
+</blockquote>
+<span id="more"></span>
+<h3 id="问题猜想"><a href="#问题猜想" class="headerlink" title="问题猜想"></a>问题猜想</h3><blockquote>
+<p>因为项目中使用的定时器是使用springboot自带的@Scheduled注解实现的,通过跟踪源码发现,在springboot执行定时任务时,框架默认只启动一个线程执行,如果前一个任务由于某些原因导致线程被阻塞,那么就会出现之后所有的定时器都不会执行,直到该线程被释放掉。</p>
+</blockquote>
+<h3 id="问题排查"><a href="#问题排查" class="headerlink" title="问题排查"></a>问题排查</h3><ol>
+<li><p>使用linux客户端登录到生产服务器</p>
+</li>
+<li><p>输入top命令,发现cpu和内存的使用率并不是很高</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[root@iz2ze9hbg36c3rlf5v08uwz ~]# top</span><br><span class="line">top - 14:36:27 up 52 days,  3:40,  2 users,  load average: 0.47, 0.14, 0.08</span><br><span class="line">Tasks:  77 total,   1 running,  76 sleeping,   0 stopped,   0 zombie</span><br><span class="line"><span class="meta prompt_">%</span><span class="language-bash">Cpu(s):  1.7 us,  0.7 sy,  0.0 ni, 97.7 <span class="built_in">id</span>,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st</span></span><br><span class="line">KiB Mem :  1883724 total,   114700 free,   436760 used,  1332264 buff/cache</span><br><span class="line">KiB Swap:        0 total,        0 free,        0 used.  1200096 avail Mem</span><br><span class="line"></span><br><span class="line">  PID USER      PR  NI    VIRT    RES    SHR S %CPU %MEM     TIME+ COMMAND</span><br><span class="line"> 2477 root      10 -10  146436  27316   5996 S  1.3  1.5 969:36.62 AliYunDun</span><br><span class="line">16380 root      20   0 2074724  76296  11056 S  0.3  4.1  97:21.58 java</span><br><span class="line">25664 root      20   0  156556   8420   1400 S  0.3  0.4  64:42.31 redis-server</span><br><span class="line">    1 root      20   0  190964   3688   2276 S  0.0  0.2   9:26.19 systemd</span><br><span class="line">    2 root      20   0       0      0      0 S  0.0  0.0   0:00.04 kthreadd</span><br><span class="line">    3 root      20   0       0      0      0 S  0.0  0.0   1:12.96 ksoftirqd/0</span><br><span class="line">    5 root       0 -20       0      0      0 S  0.0  0.0   0:00.00 kworker/0:0H</span><br><span class="line">    7 root      rt   0       0      0      0 S  0.0  0.0   0:00.00 migration/0</span><br><span class="line">    8 root      20   0       0      0      0 S  0.0  0.0   0:00.00 rcu_bh</span><br><span class="line">    9 root      20   0       0      0      0 S  0.0  0.0  27:56.73 rcu_sched</span><br><span class="line">   10 root      rt   0       0      0      0 S  0.0  0.0   0:21.11 watchdog/0</span><br><span class="line">   </span><br></pre></td></tr></table></figure></li>
+<li><p>输入jps命令,查询java进程</p>
+</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@iz2ze9hbg36c3rlf5v08uwz ~]# jps</span><br><span class="line">31841 Jps</span><br><span class="line">16380 Application</span><br><span class="line">31663 jar</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>输入top -Hp 31663,显示改进程的线程信息列表</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">[root@iz2ze9hbg36c3rlf5v08uwz ~]# top -Hp 31663</span><br><span class="line">top - 14:40:50 up 52 days,  3:44,  2 users,  load average: 0.02, 0.10, 0.08</span><br><span class="line">Threads:  26 total,   0 running,  26 sleeping,   0 stopped,   0 zombie</span><br><span class="line"><span class="meta prompt_">%</span><span class="language-bash">Cpu(s):  1.3 us,  0.7 sy,  0.0 ni, 97.7 <span class="built_in">id</span>,  0.3 wa,  0.0 hi,  0.0 si,  0.0 st</span></span><br><span class="line">KiB Mem :  1883724 total,   113080 free,   438296 used,  1332348 buff/cache</span><br><span class="line">KiB Swap:        0 total,        0 free,        0 used.  1198552 avail Mem</span><br><span class="line"></span><br><span class="line">  PID USER      PR  NI    VIRT    RES    SHR S %CPU %MEM     TIME+ COMMAND</span><br><span class="line">31663 root      20   0 2533316 127148  13704 S  0.0  6.7   0:00.00 java</span><br><span class="line">31664 root      20   0 2533316 127148  13704 S  0.0  6.7   0:03.23 java</span><br><span class="line">31665 root      20   0 2533316 127148  13704 S  0.0  6.7   0:00.23 VM Thread</span><br><span class="line">31666 root      20   0 2533316 127148  13704 S  0.0  6.7   0:00.01 Reference Handl</span><br><span class="line">31667 root      20   0 2533316 127148  13704 S  0.0  6.7   0:00.01 Finalizer</span><br><span class="line">31668 root      20   0 2533316 127148  13704 S  0.0  6.7   0:00.00 Signal Dispatch</span><br><span class="line">31669 root      20   0 2533316 127148  13704 S  0.0  6.7   0:03.57 C2 CompilerThre</span><br><span class="line">31670 root      20   0 2533316 127148  13704 S  0.0  6.7   0:00.85 C1 CompilerThre</span><br><span class="line">31671 root      20   0 2533316 127148  13704 S  0.0  6.7   0:00.00 Service Thread</span><br><span class="line">31672 root      20   0 2533316 127148  13704 S  0.0  6.7   0:00.19 VM Periodic Tas</span><br><span class="line">31678 root      20   0 2533316 127148  13704 S  0.0  6.7   0:00.05 Catalina-utilit</span><br><span class="line">31679 root      20   0 2533316 127148  13704 S  0.0  6.7   0:00.00 Catalina-utilit</span><br><span class="line">31680 root      20   0 2533316 127148  13704 S  0.0  6.7   0:00.00 container-0</span><br><span class="line">31682 root      20   0 2533316 127148  13704 S  0.0  6.7   0:00.08 http-nio-8080-e</span><br><span class="line">31683 root      20   0 2533316 127148  13704 S  0.0  6.7   0:00.00 http-nio-8080-e</span><br><span class="line">31684 root      20   0 2533316 127148  13704 S  0.0  6.7   0:00.00 http-nio-8080-e</span><br><span class="line">31685 root      20   0 2533316 127148  13704 S  0.0  6.7   0:00.00 http-nio-8080-e</span><br><span class="line">31686 root      20   0 2533316 127148  13704 S  0.0  6.7   0:00.00 http-nio-8080-e</span><br><span class="line">31687 root      20   0 2533316 127148  13704 S  0.0  6.7   0:00.00 http-nio-8080-e</span><br><span class="line">31688 root      20   0 2533316 127148  13704 S  0.0  6.7   0:00.00 http-nio-8080-e</span><br><span class="line">31689 root      20   0 2533316 127148  13704 S  0.0  6.7   0:00.00 http-nio-8080-e</span><br><span class="line">31690 root      20   0 2533316 127148  13704 S  0.0  6.7   0:00.00 http-nio-8080-e</span><br><span class="line">31691 root      20   0 2533316 127148  13704 S  0.0  6.7   0:00.00 http-nio-8080-e</span><br><span class="line">31692 root      20   0 2533316 127148  13704 S  0.0  6.7   0:00.02 http-nio-8080-P</span><br><span class="line">31693 root      20   0 2533316 127148  13704 S  0.0  6.7   0:00.00 http-nio-8080-A</span><br><span class="line">31694 root      20   0 2533316 127148  13704 S  0.0  6.7   0:00.05 scheduling-1</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>找到定时器对应的线程号31694,将其转换成16进制后,在打印其堆栈信息</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">[root@iz2ze9hbg36c3rlf5v08uwz ~]# jstack 31663 | grep &quot;7bce&quot; -C100 --color</span><br><span class="line">2021-08-06 14:48:05</span><br><span class="line">Full thread dump OpenJDK 64-Bit Server VM (25.292-b10 mixed mode):</span><br><span class="line"></span><br><span class="line">&quot;Attach Listener&quot; #27 daemon prio=9 os_prio=0 tid=0x00007f32080ca800 nid=0x7e2a waiting on condition [0x0000000000000000]</span><br><span class="line">   java.lang.Thread.State: RUNNABLE</span><br><span class="line"></span><br><span class="line">&quot;DestroyJavaVM&quot; #26 prio=5 os_prio=0 tid=0x00007f323404b800 nid=0x7bb0 waiting on condition [0x0000000000000000]</span><br><span class="line">   java.lang.Thread.State: RUNNABLE</span><br><span class="line"></span><br><span class="line">&quot;scheduling-1&quot; #25 prio=5 os_prio=0 tid=0x00007f3234b98000 nid=0x7bce runnable [0x00007f320d3b3000]</span><br><span class="line">   java.lang.Thread.State: RUNNABLE</span><br><span class="line">        at java.net.SocketInputStream.socketRead0(Native Method)</span><br><span class="line">        at java.net.SocketInputStream.socketRead(SocketInputStream.java:116)</span><br><span class="line">        at java.net.SocketInputStream.read(SocketInputStream.java:171)</span><br><span class="line">        at java.net.SocketInputStream.read(SocketInputStream.java:141)</span><br><span class="line">        at java.io.BufferedInputStream.fill(BufferedInputStream.java:246)</span><br><span class="line">        at java.io.BufferedInputStream.read1(BufferedInputStream.java:286)</span><br><span class="line">        at java.io.BufferedInputStream.read(BufferedInputStream.java:345)</span><br><span class="line">        - locked &lt;0x00000000e3c1ad78&gt; (a java.io.BufferedInputStream)</span><br><span class="line">        at sun.net.www.http.HttpClient.parseHTTPHeader(HttpClient.java:735)</span><br><span class="line">        at sun.net.www.http.HttpClient.parseHTTP(HttpClient.java:678)</span><br><span class="line">        at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1593)</span><br><span class="line">        - locked &lt;0x00000000e3c1ae28&gt; (a sun.net.www.protocol.http.HttpURLConnection)</span><br><span class="line">        at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1498)</span><br><span class="line">        - locked &lt;0x00000000e3c1ae28&gt; (a sun.net.www.protocol.http.HttpURLConnection)</span><br><span class="line">        at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:480)</span><br><span class="line">        at org.springframework.http.client.SimpleBufferingClientHttpRequest.executeInternal(SimpleBufferingClientHttpRequest.java:82)</span><br><span class="line">        at org.springframework.http.client.AbstractBufferingClientHttpRequest.executeInternal(AbstractBufferingClientHttpRequest.java:48)</span><br><span class="line">        at org.springframework.http.client.AbstractClientHttpRequest.execute(AbstractClientHttpRequest.java:66)</span><br><span class="line">        at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:776)</span><br><span class="line">        at org.springframework.web.client.RestTemplate.execute(RestTemplate.java:711)</span><br><span class="line">        at org.springframework.web.client.RestTemplate.getForEntity(RestTemplate.java:361)</span><br><span class="line">        at com.example.demo.TestTask.task(TestTask.java:25)</span><br><span class="line">        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)</span><br><span class="line">        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)</span><br><span class="line">        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)</span><br><span class="line">        at java.lang.reflect.Method.invoke(Method.java:498)</span><br><span class="line">        at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84)</span><br><span class="line">        at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)</span><br><span class="line">        at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95)</span><br><span class="line">        at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)</span><br><span class="line">        at java.util.concurrent.FutureTask.run(FutureTask.java:266)</span><br><span class="line">        at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)</span><br><span class="line">        at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)</span><br><span class="line">        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)</span><br><span class="line">        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)</span><br><span class="line">        at java.lang.Thread.run(Thread.java:748)</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>通过堆栈信息发现定时器线程被阻塞在这一行</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">at com.example.demo.TestTask.task(TestTask.java:25)</span><br></pre></td></tr></table></figure>
+<ol start="7">
+<li>查看代码发现这一行调用了http接口,但是没有设置超时时间,导致线程一直在尝试连接</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@Scheduled(cron = &quot;0 */1 * * * ?&quot;)</span><br><span class="line">public void task() &#123;</span><br><span class="line">    LocalDateTime now = LocalDateTime.now();</span><br><span class="line">    System.out.println(String.format(&quot;当前时间: %s&quot;, df.format(now)));</span><br><span class="line"></span><br><span class="line">    //调用测试的接口</span><br><span class="line">    RestTemplate restTemplate = new RestTemplate();</span><br><span class="line">    ResponseEntity&lt;String&gt; entity = restTemplate.getForEntity(&quot;http://localhost:8080/test&quot;, String.class);</span><br><span class="line"></span><br><span class="line">    System.out.println(entity.getBody());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>最终我们通过为HTTP请求设置过期时间,解决了该问题,其实排查问题时也可以借助一些其他的工具,如Arthas等,也能更好的帮助我们排查问题</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2021/08/06/%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/%E5%AE%9A%E6%97%B6%E5%99%A8%E4%B8%8D%E6%89%A7%E8%A1%8C%E9%97%AE%E9%A2%98/">定时器不执行问题</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">王霄</a></p>
+        <p><span>发布时间:</span>2021-08-06, 00:00:00</p>
+        <p><span>最后更新:</span>2022-01-09, 22:51:39</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2021/08/06/%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/%E5%AE%9A%E6%97%B6%E5%99%A8%E4%B8%8D%E6%89%A7%E8%A1%8C%E9%97%AE%E9%A2%98/" title="定时器不执行问题">http://example.com/2021/08/06/%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/%E5%AE%9A%E6%97%B6%E5%99%A8%E4%B8%8D%E6%89%A7%E8%A1%8C%E9%97%AE%E9%A2%98/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://example.com/2021/08/06/%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/%E5%AE%9A%E6%97%B6%E5%99%A8%E4%B8%8D%E6%89%A7%E8%A1%8C%E9%97%AE%E9%A2%98/　　作者: 王霄" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2021/08/07/java/springboot/springboot%E6%95%B4%E5%90%88mongodb/">
+                    springboot整合mongodb
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2021/08/06/%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/">
+                    索引失效问题排查
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%9A%E5%8A%A1%E8%83%8C%E6%99%AF"><span class="toc-number">1.</span> <span class="toc-text">业务背景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E7%8C%9C%E6%83%B3"><span class="toc-number">2.</span> <span class="toc-text">问题猜想</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5"><span class="toc-number">3.</span> <span class="toc-text">问题排查</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+
+
+    
+
+
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/love.js"></script>
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2021/08/07/java/springboot/springboot%E6%95%B4%E5%90%88mongodb/" title="上一篇: springboot整合mongodb">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2021/08/06/%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/" title="下一篇: 索引失效问题排查">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2023/04/13/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/mysql%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">mysql数据结构</a></li><li class="post-list-item"><a class="post-list-link" href="/2023/02/17/%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/Mqtt%E9%9D%A2%E8%AF%95%E9%A2%98/">Mqtt面试题</a></li><li class="post-list-item"><a class="post-list-link" href="/2023/02/17/%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/Spring%E4%BA%8B%E5%8A%A1%E7%9A%84%E4%BC%A0%E6%92%AD%E6%9C%BA%E5%88%B6/">Spring事务的传播机制</a></li><li class="post-list-item"><a class="post-list-link" href="/2023/02/17/%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/%E4%BA%8B%E5%8A%A1%E7%9A%84%E9%9A%94%E7%A6%BB%E6%9C%BA%E5%88%B6/">事务的隔离机制</a></li><li class="post-list-item"><a class="post-list-link" href="/2023/02/17/%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/%E7%B4%A2%E5%BC%95/">索引</a></li><li class="post-list-item"><a class="post-list-link" href="/2023/02/17/%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/%E9%99%90%E6%B5%81-%E7%86%94%E6%96%AD-%E6%9C%8D%E5%8A%A1%E9%99%8D%E7%BA%A7/">限流-熔断-服务降级</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/06/15/%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/%E6%8E%A5%E5%8F%A3%E5%B9%82%E7%AD%89%E6%80%A7/">接口幂等性</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/01/22/%E5%BE%AE%E6%9C%8D%E5%8A%A1/sentinel/">sentinel</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/01/09/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/git/gitlab%E5%AE%89%E8%A3%85/">gitlab安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/01/08/%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6/rabbitmq/rabbitmq%E5%AD%A6%E4%B9%A0/">rabbitmq学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/01/08/%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6/rabbitmq/rabbitmq%E5%AE%89%E8%A3%85/">rabbitmq安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/01/06/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/zookeeper%E5%AE%89%E8%A3%85/">zookeeper安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/01/05/%E5%BE%AE%E6%9C%8D%E5%8A%A1/nacos/">nacos安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/01/05/%E5%BE%AE%E6%9C%8D%E5%8A%A1/springcloud/">springcloud学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/01/01/java/java%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/">java引用类型</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/01/01/java/jdk%E5%AE%89%E8%A3%85/">jdk安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/01/01/%E5%85%B6%E4%BB%96/jmeter%E5%AD%A6%E4%B9%A0/">jmeter学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/01/01/java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">java并发编程</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/01/01/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/git/git%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/">git命令大全</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/01/01/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/git/git%E5%AE%89%E8%A3%85/">git安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/08/15/%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/%E7%BA%BF%E4%B8%8Aoom%E9%97%AE%E9%A2%98/">线上oom问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/08/11/linux/linux%E5%AD%A6%E4%B9%A0/">Linux学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/08/11/linux/linux%E6%94%B6%E8%97%8F%E6%8C%87%E4%BB%A4/">Linux收藏指令</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/08/08/java/java8/lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/">lambda表达式</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/08/07/%E9%A1%B9%E7%9B%AE%E5%BA%94%E7%94%A8/%E5%BB%B6%E6%97%B6%E8%AE%A2%E5%8D%95%E5%A4%84%E7%90%86/">延时订单处理</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/08/07/java/springboot/springboot%E6%95%B4%E5%90%88mongodb/">springboot整合mongodb</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/08/06/%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/%E5%AE%9A%E6%97%B6%E5%99%A8%E4%B8%8D%E6%89%A7%E8%A1%8C%E9%97%AE%E9%A2%98/">定时器不执行问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/08/06/%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/">索引失效问题排查</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/08/06/java/springboot/springboot%E6%95%B4%E5%90%88redis/">springboot整合redis</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/04/10/%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6/%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AF%B9%E6%AF%94%E5%92%8C%E9%80%89%E5%9E%8B/">消息中间件对比和选型</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/04/10/java/springboot/springboot%E6%95%B4%E5%90%88activemq/">springboot整合activemq</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/04/10/%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6/activemq/activemq%E5%AD%A6%E4%B9%A0/">activemq学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/04/10/%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6/activemq/activemq%E5%AE%89%E8%A3%85/">activemq安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/04/09/java/springboot/springboot%E6%95%B4%E5%90%88kafka/">springboot整合kafka</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/04/09/%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6/kafka/kafka%E5%AD%A6%E4%B9%A0/">kafka学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/04/09/%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6/kafka/kafka%E5%AE%89%E8%A3%85/">kafka安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/04/08/java/springboot/springboot%E6%95%B4%E5%90%88rabbitmq/">springboot整合rabbitmq</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/04/07/java/springboot/springboot%E6%95%B4%E5%90%88rocketmq/">springboot整合rocketmq</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/04/07/%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6/rocketmq/rocketmq%E5%AD%A6%E4%B9%A0/">rocketmq学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/04/07/%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6/rocketmq/rocketmq%E5%AE%89%E8%A3%85/">rocketmq安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/01/25/%E9%A1%B9%E7%9B%AE%E5%BA%94%E7%94%A8/%E6%8E%A5%E5%8F%A3%E9%99%90%E6%B5%81/">接口限流</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/01/25/java/springboot/springboot%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F/">springboot项目部署的两种方式</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/06/%E6%95%B0%E6%8D%AE%E5%BA%93/mongodb/mongodb%E5%AD%A6%E4%B9%A0/">mongodb学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/06/%E6%95%B0%E6%8D%AE%E5%BA%93/mongodb/mongodb%E5%AE%89%E8%A3%85/">mongodb安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/06/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/mysql%E5%AD%A6%E4%B9%A0/">mysql学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/06/%E6%95%B0%E6%8D%AE%E5%BA%93/redis/redis%E5%AD%A6%E4%B9%A0/">redis学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/06/%E6%95%B0%E6%8D%AE%E5%BA%93/redis/redis%E5%AE%89%E8%A3%85/">redis安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/05/05/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/">冒泡排序</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/05/05/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/">选择排序</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/05/01/%E7%AE%97%E6%B3%95/%E5%8D%81%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2%E4%B8%BA%E4%BA%8C%E8%BF%9B%E5%88%B6%E7%AE%97%E6%B3%95/">十进制数字转换为二进制</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/19/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4/docker/docker%E5%85%A5%E9%97%A8/">Docker简介</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/23/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/">设计模式之适配器模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/22/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/">设计模式之建造者模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/21/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/">设计模式之原型模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/">设计模式之工厂方法模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/">设计模式之简单工厂模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">设计模式之单例模式</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2018-2023 王霄
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+    
+<script src="/js/GithubRepoWidget.js"></script>
+
+
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        $("a[target=_blank]").removeAttr("target");
+    
+</script>
+
+    <script>
+        var originTitle = document.title;
+        var titleTime;
+        document.addEventListener("visibilitychange", function() {
+            if (document.hidden) {
+                document.title = "开心" + originTitle;
+                clearTimeout(titleTime);
+            }
+            else {
+                document.title = "不开心" + originTitle;
+                titleTime = setTimeout(function() {
+                    document.title = originTitle;
+                }, 2000);
+            }
+        })
+    </script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

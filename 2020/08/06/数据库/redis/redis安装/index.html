@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="王霄" />
+
+
+
+<meta name="description" content="最近在学习redis的安装和使用,用博客记录一下自己安装redis的过程,以下是环境准备   redis安装包 下载地址 三台linux服务器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redis安装">
+<meta property="og:url" content="http://example.com/2020/08/06/%E6%95%B0%E6%8D%AE%E5%BA%93/redis/redis%E5%AE%89%E8%A3%85/index.html">
+<meta property="og:site_name" content="WX">
+<meta property="og:description" content="最近在学习redis的安装和使用,用博客记录一下自己安装redis的过程,以下是环境准备   redis安装包 下载地址 三台linux服务器">
+<meta property="og:locale">
+<meta property="article:published_time" content="2020-08-05T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-01-10T13:03:41.588Z">
+<meta property="article:author" content="王霄">
+<meta property="article:tag" content="软件安装">
+<meta property="article:tag" content="redis">
+<meta property="article:tag" content="nosql">
+<meta name="twitter:card" content="summary">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="WX" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="https://wxad.oss-cn-beijing.aliyuncs.com/favicon.ico">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>redis安装 | WX</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="https://wxad.oss-cn-beijing.aliyuncs.com/psb.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">王霄</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">夏天的风我永远记得</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <!--加滚动条-->
+                    <nav class="header-menu" style="position:relative; height:400px; overflow-y:auto">
+                        <ul style="position:relative; height:400px; overflow-y:auto">
+                            
+                                <li><a href="/">主页</a></li>
+                            
+                                <li><a href="/archives/">所有文章</a></li>
+                            
+                                <li><a href="/tags/">标签云</a></li>
+                            
+                                <li><a href="/about/">关于我</a></li>
+                            
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:&#49;&#48;&#51;&#51;&#49;&#51;&#54;&#57;&#54;&#55;&#64;&#113;&#113;&#46;&#99;&#111;&#109;" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" rel="noopener" href="https://github.com/loveUUxad" title="GitHub"></a>
+                            
+                                <a class="fa Gitee" target="_blank" rel="noopener" href="https://gitee.com/loveUUxad" title="Gitee"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/activemq/" rel="tag">activemq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gitlab/" rel="tag">gitlab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java8/" rel="tag">java8</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" rel="tag">java并发编程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/" rel="tag">java引用类型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jdk%E5%AE%89%E8%A3%85/" rel="tag">jdk安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jmeter/" rel="tag">jmeter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kafka/" rel="tag">kafka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lambda/" rel="tag">lambda</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/" rel="tag">mongodb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nacos/" rel="tag">nacos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nosql/" rel="tag">nosql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rabbitmq/" rel="tag">rabbitmq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rocketmq/" rel="tag">rocketmq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sentinel/" rel="tag">sentinel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springcloud/" rel="tag">springcloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zookeeper/" rel="tag">zookeeper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%A4%E7%89%8C%E6%A1%B6/" rel="tag">令牌桶</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95/" rel="tag">压力测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F/" rel="tag">排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%8D%E5%8A%A1%E9%99%8D%E7%BA%A7/" rel="tag">服务降级</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/" rel="tag">注册中心</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%86%94%E6%96%AD/" rel="tag">熔断</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/" rel="tag">软件安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2/" rel="tag">进制转换</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/" rel="tag">配置中心</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%99%90%E6%B5%81/" rel="tag">限流</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%99%90%E6%B5%81%E6%A1%86%E6%9E%B6/" rel="tag">限流框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2/" rel="tag">项目部署</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" target="_blank" rel="noopener" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" target="_blank" rel="noopener" href="https://github.com/loveUUxad">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" target="_blank" rel="noopener" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">java开发工程师</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">王霄</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="https://wxad.oss-cn-beijing.aliyuncs.com/psb.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">王霄</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">夏天的风我永远记得</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:&#49;&#48;&#51;&#51;&#49;&#51;&#54;&#57;&#54;&#55;&#64;&#113;&#113;&#46;&#99;&#111;&#109;" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/loveUUxad" title="GitHub"></a>
+                            
+                                <a class="fa Gitee" target="_blank" href="https://gitee.com/loveUUxad" title="Gitee"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-数据库/redis/redis安装" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/08/06/%E6%95%B0%E6%8D%AE%E5%BA%93/redis/redis%E5%AE%89%E8%A3%85/" class="article-date">
+      <time datetime="2020-08-05T16:00:00.000Z" itemprop="datePublished">2020-08-06</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      redis安装
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nosql/" rel="tag">nosql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/" rel="tag">软件安装</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>最近在学习redis的安装和使用,用博客记录一下自己安装redis的过程,以下是环境准备</p>
+<blockquote>
+<ul>
+<li>redis安装包 <a target="_blank" rel="noopener" href="https://download.redis.io/releases/">下载地址</a></li>
+<li>三台linux服务器</li>
+</ul>
+</blockquote>
+<span id="more"></span>
+<h2 id="单机版安装"><a href="#单机版安装" class="headerlink" title="单机版安装"></a>单机版安装</h2><h3 id="gcc环境安装"><a href="#gcc环境安装" class="headerlink" title="gcc环境安装"></a>gcc环境安装</h3><h4 id="查看gcc版本号"><a href="#查看gcc版本号" class="headerlink" title="查看gcc版本号"></a>查看gcc版本号</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -v</span><br></pre></td></tr></table></figure>
+
+<h4 id="安装命令"><a href="#安装命令" class="headerlink" title="安装命令"></a>安装命令</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y gcc gcc-c++</span><br></pre></td></tr></table></figure>
+
+<h4 id="升级命令"><a href="#升级命令" class="headerlink" title="升级命令"></a>升级命令</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum -y install centos-release-scl</span><br><span class="line">yum -y install devtoolset-9-gcc devtoolset-9-gcc-c++ devtoolset-9-binutils</span><br><span class="line">scl enable devtoolset-9 bash</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>注意: redis6需要5.3以上版本的gcc</strong></p>
+</blockquote>
+<h3 id="解压上传好安装包"><a href="#解压上传好安装包" class="headerlink" title="解压上传好安装包"></a>解压上传好安装包</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf redis-6.0.9.tar.gz</span><br></pre></td></tr></table></figure>
+<h3 id="进入到解压目录"><a href="#进入到解压目录" class="headerlink" title="进入到解压目录"></a>进入到解压目录</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd redis-6.0.9/</span><br></pre></td></tr></table></figure>
+<h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make</span><br></pre></td></tr></table></figure>
+<h3 id="编译成功后进入src目录下"><a href="#编译成功后进入src目录下" class="headerlink" title="编译成功后进入src目录下"></a>编译成功后进入src目录下</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd srs/</span><br></pre></td></tr></table></figure>
+<h3 id="安装redis"><a href="#安装redis" class="headerlink" title="安装redis"></a>安装redis</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">PREFIX: 安装目录</span></span><br><span class="line">make PREFIX=/usr/local/redis install</span><br></pre></td></tr></table></figure>
+<h3 id="创建数据文件夹和日志文件"><a href="#创建数据文件夹和日志文件" class="headerlink" title="创建数据文件夹和日志文件"></a>创建数据文件夹和日志文件</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir /usr/local/redis/data/</span><br><span class="line">touch /usr/local/redis/redis.log</span><br></pre></td></tr></table></figure>
+<h3 id="编辑配置文件"><a href="#编辑配置文件" class="headerlink" title="编辑配置文件"></a>编辑配置文件</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">拷贝一份redis.conf</span></span><br><span class="line">cp /home/wx/Downloads/redis-6.0.9/redis.conf /etc/redis.conf</span><br><span class="line">vi /etc/redis.conf</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>conf配置</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">指定 redis 只接收来自于该IP地址的请求,如果不进行设置,那么将处理所有请求</span></span><br><span class="line">bind 0.0.0.0</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">是否开启保护模式,默认开启。要是配置里没有指定<span class="built_in">bind</span>和密码。开启该参数后,redis只会本地进行访问,拒绝外部访问。要是开启了密码和<span class="built_in">bind</span>,可以开启。否则最好关闭,设置为no</span></span><br><span class="line">protected-mode yes</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">指定了记录日志的文件。空字符串的话,日志会打印到标准输出设备。后台运行的redis标准输出是/dev/null</span></span><br><span class="line">logfile /usr/local/redis/redis.log</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">数据目录,数据库的写入会在这个目录。rdb、aof文件也会写在这个目录</span></span><br><span class="line">dir /usr/local/redis/data/</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">RDB核心规则配置 save &lt;指定时间间隔&gt; &lt;执行指定次数更新操作&gt;,满足条件就将内存中的数据同步到硬盘中。官方出厂配置默认是 900秒内有1个更改,300秒内有10个更改以及60秒内有10000个更改,则将内存中的数据快照写入磁盘。若不想用RDB方案,可以把 save <span class="string">&quot;&quot;</span> 的注释打开,下面三个注释</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  save <span class="string">&quot;&quot;</span></span></span><br><span class="line">save 900 1</span><br><span class="line">save 300 10</span><br><span class="line">save 60 10000</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">设置密码</span></span><br><span class="line">requirepass 123456</span><br></pre></td></tr></table></figure>
+<h3 id="将redis做成系统服务"><a href="#将redis做成系统服务" class="headerlink" title="将redis做成系统服务"></a>将redis做成系统服务</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/systemd/system/redis.service</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>复制以下内容</p>
+</blockquote>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">[Unit]</span></span><br><span class="line"><span class="attr">Description</span>=<span class="string">redis Server</span></span><br><span class="line"><span class="attr">After</span>=<span class="string">network.target</span></span><br><span class="line"></span><br><span class="line"><span class="attr">[Service]</span></span><br><span class="line"><span class="attr">ExecStart</span>=<span class="string">/usr/local/redis/bin/redis-server /etc/redis.conf</span></span><br><span class="line"><span class="attr">ExecStop</span>=<span class="string">/usr/local/redis/bin/redis-cli -h 127.0.0.1 -p 6379 -a 123456 shutdown</span></span><br><span class="line"></span><br><span class="line"><span class="attr">[Install]</span></span><br><span class="line"><span class="attr">WantedBy</span>=<span class="string">mutli-user.target</span></span><br></pre></td></tr></table></figure>
+<h3 id="redis的一些命令"><a href="#redis的一些命令" class="headerlink" title="redis的一些命令"></a>redis的一些命令</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl start redis</span><br><span class="line">systemctl status redis</span><br><span class="line">systemctl stop redis</span><br><span class="line">systemctl enable redis</span><br><span class="line">systemctl is-enabled redis</span><br></pre></td></tr></table></figure>
+
+<h2 id="主从复制安装"><a href="#主从复制安装" class="headerlink" title="主从复制安装"></a>主从复制安装</h2><h3 id="服务器准备"><a href="#服务器准备" class="headerlink" title="服务器准备"></a>服务器准备</h3><table>
+<thead>
+<tr>
+<th align="left">服务器</th>
+<th align="left">端口</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">192.168.72.128</td>
+<td align="left">6379</td>
+<td align="left">主节点</td>
+</tr>
+<tr>
+<td align="left">192.168.72.129</td>
+<td align="left">6379</td>
+<td align="left">从节点</td>
+</tr>
+<tr>
+<td align="left">192.168.72.130</td>
+<td align="left">6379</td>
+<td align="left">从节点</td>
+</tr>
+</tbody></table>
+<h3 id="将三台服务器都安装上redis"><a href="#将三台服务器都安装上redis" class="headerlink" title="将三台服务器都安装上redis"></a>将三台服务器都安装上redis</h3><h3 id="修改两个从节点的配置"><a href="#修改两个从节点的配置" class="headerlink" title="修改两个从节点的配置"></a>修改两个从节点的配置</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/redis.conf</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>conf配置</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">主节点地址</span></span><br><span class="line">slaveof 192.168.72.128 6379</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">主节点密码</span></span><br><span class="line">masterauth 123456</span><br></pre></td></tr></table></figure>
+<h3 id="依次启动主节点和两个从节点"><a href="#依次启动主节点和两个从节点" class="headerlink" title="依次启动主节点和两个从节点"></a>依次启动主节点和两个从节点</h3><h2 id="哨兵模式安装"><a href="#哨兵模式安装" class="headerlink" title="哨兵模式安装"></a>哨兵模式安装</h2><h3 id="服务器准备-1"><a href="#服务器准备-1" class="headerlink" title="服务器准备"></a>服务器准备</h3><table>
+<thead>
+<tr>
+<th align="left">服务器</th>
+<th align="left">端口</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">192.168.72.128</td>
+<td align="left">6379</td>
+<td align="left">主节点</td>
+</tr>
+<tr>
+<td align="left">192.168.72.129</td>
+<td align="left">6379</td>
+<td align="left">从节点</td>
+</tr>
+<tr>
+<td align="left">192.168.72.130</td>
+<td align="left">6379</td>
+<td align="left">从节点</td>
+</tr>
+<tr>
+<td align="left">192.168.72.128</td>
+<td align="left">26379</td>
+<td align="left">哨兵1</td>
+</tr>
+<tr>
+<td align="left">192.168.72.129</td>
+<td align="left">26379</td>
+<td align="left">哨兵2</td>
+</tr>
+<tr>
+<td align="left">192.168.72.130</td>
+<td align="left">26379</td>
+<td align="left">哨兵3</td>
+</tr>
+</tbody></table>
+<h3 id="先在三台服务器上安装好主从架构"><a href="#先在三台服务器上安装好主从架构" class="headerlink" title="先在三台服务器上安装好主从架构"></a>先在三台服务器上安装好主从架构</h3><h3 id="分别为每台服务器安装哨兵"><a href="#分别为每台服务器安装哨兵" class="headerlink" title="分别为每台服务器安装哨兵"></a>分别为每台服务器安装哨兵</h3><h4 id="进入到src目录下安装sentinel"><a href="#进入到src目录下安装sentinel" class="headerlink" title="进入到src目录下安装sentinel"></a>进入到src目录下安装sentinel</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make PREFIX=/usr/local/sentinel install</span><br></pre></td></tr></table></figure>
+<h4 id="创建存放哨兵日志的文件夹和文件"><a href="#创建存放哨兵日志的文件夹和文件" class="headerlink" title="创建存放哨兵日志的文件夹和文件"></a>创建存放哨兵日志的文件夹和文件</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir /usr/local/sentinel/data/</span><br><span class="line">touch /usr/local/sentinel/redis.log</span><br></pre></td></tr></table></figure>
+<h4 id="编辑哨兵配置文件"><a href="#编辑哨兵配置文件" class="headerlink" title="编辑哨兵配置文件"></a>编辑哨兵配置文件</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cp /home/wx/Downloads/redis-6.0.9/redis.conf /etc/sentinel.conf</span><br><span class="line">vi /etc/sentinel.conf</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>哨兵配置文件</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">bind 0.0.0.0</span><br><span class="line">port 26379</span><br><span class="line">protected-mode yes</span><br><span class="line">logfile /usr/local/sentinel/redis.log</span><br><span class="line">dir /usr/local/sentinel/data</span><br><span class="line">requirepass 123456</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">配置主服务器</span></span><br><span class="line">sentinel monitor master 192.168.72.128 6379 2</span><br><span class="line">sentinel auth-pass master 123456</span><br><span class="line">sentinel failover-timeout master 10000</span><br><span class="line">sentinel down-after-milliseconds master 3000</span><br></pre></td></tr></table></figure>
+<h4 id="创建哨兵的启动服务"><a href="#创建哨兵的启动服务" class="headerlink" title="创建哨兵的启动服务"></a>创建哨兵的启动服务</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/systemd/system/sentinel.service</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>复制以下内容</p>
+</blockquote>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">[Unit]</span></span><br><span class="line"><span class="attr">Description</span>=<span class="string">Sentinel Server</span></span><br><span class="line"><span class="attr">After</span>=<span class="string">network.target</span></span><br><span class="line"></span><br><span class="line"><span class="attr">[Service]</span></span><br><span class="line"><span class="attr">ExecStart</span>=<span class="string">/usr/local/sentinel/bin/redis-server /etc/sentinel.conf --sentinel</span></span><br><span class="line"><span class="attr">ExecStop</span>=<span class="string">/usr/local/sentinel/bin/redis-cli -h 127.0.0.1 -p 6379 -a 123456 shutdown</span></span><br><span class="line"></span><br><span class="line"><span class="attr">[Install]</span></span><br><span class="line"><span class="attr">WantedBy</span>=<span class="string">mutli-user.target</span></span><br></pre></td></tr></table></figure>
+<h4 id="依次启动哨兵-并作成开机启动"><a href="#依次启动哨兵-并作成开机启动" class="headerlink" title="依次启动哨兵,并作成开机启动"></a>依次启动哨兵,并作成开机启动</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl start sentinel</span><br><span class="line">systemctl status sentinel</span><br><span class="line">systemctl enable sentinel</span><br></pre></td></tr></table></figure>
+
+<h2 id="集群模式安装"><a href="#集群模式安装" class="headerlink" title="集群模式安装"></a>集群模式安装</h2><h3 id="服务器准备-2"><a href="#服务器准备-2" class="headerlink" title="服务器准备"></a>服务器准备</h3><table>
+<thead>
+<tr>
+<th align="left">服务器</th>
+<th align="left">端口</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">192.168.186.128</td>
+<td align="left">6379</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">192.168.186.131</td>
+<td align="left">6379</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">192.168.186.132</td>
+<td align="left">6379</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">192.168.186.133</td>
+<td align="left">6379</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">192.168.186.134</td>
+<td align="left">6379</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">192.168.186.135</td>
+<td align="left">6379</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h3 id="为每台服务器安装上redis-参考单机-区别是添加以下配置"><a href="#为每台服务器安装上redis-参考单机-区别是添加以下配置" class="headerlink" title="为每台服务器安装上redis(参考单机),区别是添加以下配置"></a>为每台服务器安装上redis(参考单机),区别是添加以下配置</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">开启集群模式</span></span><br><span class="line">cluster-enabled yes</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">该文件中包含集群信息</span></span><br><span class="line">cluster-config-file /etc/nodes-6379.conf</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">主节点密码</span></span><br><span class="line">masterauth 123456</span><br></pre></td></tr></table></figure>
+<h3 id="将每个节点做成系统服务-依次启动"><a href="#将每个节点做成系统服务-依次启动" class="headerlink" title="将每个节点做成系统服务,依次启动"></a>将每个节点做成系统服务,依次启动</h3><h3 id="创建集群-进入到任意节点下-执行"><a href="#创建集群-进入到任意节点下-执行" class="headerlink" title="创建集群,进入到任意节点下,执行"></a>创建集群,进入到任意节点下,执行</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /home/wx/Downloads/redis-6.0.9/src/</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">--cluster-replicas 参数为数字,1表示每个主节点需要1个从节点</span></span><br><span class="line">./redis-cli -a 123456 --cluster create 192.168.186.128:6379 192.168.186.131:6379 192.168.186.132:6379 192.168.186.133:6379 192.168.186.134:6379 192.168.186.135:6379 --cluster-replicas 1</span><br></pre></td></tr></table></figure>
+
+<h3 id="集群命令"><a href="#集群命令" class="headerlink" title="集群命令"></a>集群命令</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cluster info</span><br><span class="line">cluster slots</span><br><span class="line">cluster nodes</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="集群故障"><a href="#集群故障" class="headerlink" title="集群故障"></a>集群故障</h3><ol>
+<li>如果集群任意主节点挂掉,且没有从节点.集群进入fail状态,也可以理解成集群的slot映射[0-16383]不完成时进入fail状态.</li>
+<li>如果集群超过半数以上主节点挂掉,无论是否有从节点,集群都进入fail状态.</li>
+<li>当集群不可用时,所有对集群的操作做都不可用,收到((error) CLUSTERDOWN The cluster is down)错误。</li>
+</ol>
+<h2 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h2><ul>
+<li>生产环境为了安全性,务必设置redis的密码,将认证密码设置复杂点,避免被黑客的爆破字典试出来</li>
+<li>bind生产环境不建议设置为0.0.0.0,一般只开放使用服务器的IP即可</li>
+<li>建议不要使用通用的端口6379,换成其他端口</li>
+<li>不用用root用户运行redis,为redis单独设置运行账号</li>
+<li>创建一个只读的redis用户给开发人员<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">acl setuser username on &gt;password ~* +@connection +@read +info</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2020/08/06/%E6%95%B0%E6%8D%AE%E5%BA%93/redis/redis%E5%AE%89%E8%A3%85/">redis安装</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">王霄</a></p>
+        <p><span>发布时间:</span>2020-08-06, 00:00:00</p>
+        <p><span>最后更新:</span>2022-01-10, 21:03:41</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2020/08/06/%E6%95%B0%E6%8D%AE%E5%BA%93/redis/redis%E5%AE%89%E8%A3%85/" title="redis安装">http://example.com/2020/08/06/%E6%95%B0%E6%8D%AE%E5%BA%93/redis/redis%E5%AE%89%E8%A3%85/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://example.com/2020/08/06/%E6%95%B0%E6%8D%AE%E5%BA%93/redis/redis%E5%AE%89%E8%A3%85/　　作者: 王霄" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2020/08/06/%E6%95%B0%E6%8D%AE%E5%BA%93/redis/redis%E5%AD%A6%E4%B9%A0/">
+                    redis学习
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2020/05/05/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/">
+                    冒泡排序
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E6%9C%BA%E7%89%88%E5%AE%89%E8%A3%85"><span class="toc-number">1.</span> <span class="toc-text">单机版安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#gcc%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85"><span class="toc-number">1.1.</span> <span class="toc-text">gcc环境安装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8Bgcc%E7%89%88%E6%9C%AC%E5%8F%B7"><span class="toc-number">1.1.1.</span> <span class="toc-text">查看gcc版本号</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E5%91%BD%E4%BB%A4"><span class="toc-number">1.1.2.</span> <span class="toc-text">安装命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%87%E7%BA%A7%E5%91%BD%E4%BB%A4"><span class="toc-number">1.1.3.</span> <span class="toc-text">升级命令</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E5%8E%8B%E4%B8%8A%E4%BC%A0%E5%A5%BD%E5%AE%89%E8%A3%85%E5%8C%85"><span class="toc-number">1.2.</span> <span class="toc-text">解压上传好安装包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E5%85%A5%E5%88%B0%E8%A7%A3%E5%8E%8B%E7%9B%AE%E5%BD%95"><span class="toc-number">1.3.</span> <span class="toc-text">进入到解压目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E8%AF%91"><span class="toc-number">1.4.</span> <span class="toc-text">编译</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E6%88%90%E5%8A%9F%E5%90%8E%E8%BF%9B%E5%85%A5src%E7%9B%AE%E5%BD%95%E4%B8%8B"><span class="toc-number">1.5.</span> <span class="toc-text">编译成功后进入src目录下</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85redis"><span class="toc-number">1.6.</span> <span class="toc-text">安装redis</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E6%96%87%E4%BB%B6%E5%A4%B9%E5%92%8C%E6%97%A5%E5%BF%97%E6%96%87%E4%BB%B6"><span class="toc-number">1.7.</span> <span class="toc-text">创建数据文件夹和日志文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E8%BE%91%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">1.8.</span> <span class="toc-text">编辑配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%86redis%E5%81%9A%E6%88%90%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1"><span class="toc-number">1.9.</span> <span class="toc-text">将redis做成系统服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#redis%E7%9A%84%E4%B8%80%E4%BA%9B%E5%91%BD%E4%BB%A4"><span class="toc-number">1.10.</span> <span class="toc-text">redis的一些命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%AE%89%E8%A3%85"><span class="toc-number">2.</span> <span class="toc-text">主从复制安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%87%86%E5%A4%87"><span class="toc-number">2.1.</span> <span class="toc-text">服务器准备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%86%E4%B8%89%E5%8F%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%BD%E5%AE%89%E8%A3%85%E4%B8%8Aredis"><span class="toc-number">2.2.</span> <span class="toc-text">将三台服务器都安装上redis</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E4%B8%A4%E4%B8%AA%E4%BB%8E%E8%8A%82%E7%82%B9%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="toc-number">2.3.</span> <span class="toc-text">修改两个从节点的配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%9D%E6%AC%A1%E5%90%AF%E5%8A%A8%E4%B8%BB%E8%8A%82%E7%82%B9%E5%92%8C%E4%B8%A4%E4%B8%AA%E4%BB%8E%E8%8A%82%E7%82%B9"><span class="toc-number">2.4.</span> <span class="toc-text">依次启动主节点和两个从节点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F%E5%AE%89%E8%A3%85"><span class="toc-number">3.</span> <span class="toc-text">哨兵模式安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%87%86%E5%A4%87-1"><span class="toc-number">3.1.</span> <span class="toc-text">服务器准备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%88%E5%9C%A8%E4%B8%89%E5%8F%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E5%AE%89%E8%A3%85%E5%A5%BD%E4%B8%BB%E4%BB%8E%E6%9E%B6%E6%9E%84"><span class="toc-number">3.2.</span> <span class="toc-text">先在三台服务器上安装好主从架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E5%88%AB%E4%B8%BA%E6%AF%8F%E5%8F%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%89%E8%A3%85%E5%93%A8%E5%85%B5"><span class="toc-number">3.3.</span> <span class="toc-text">分别为每台服务器安装哨兵</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9B%E5%85%A5%E5%88%B0src%E7%9B%AE%E5%BD%95%E4%B8%8B%E5%AE%89%E8%A3%85sentinel"><span class="toc-number">3.3.1.</span> <span class="toc-text">进入到src目录下安装sentinel</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%AD%98%E6%94%BE%E5%93%A8%E5%85%B5%E6%97%A5%E5%BF%97%E7%9A%84%E6%96%87%E4%BB%B6%E5%A4%B9%E5%92%8C%E6%96%87%E4%BB%B6"><span class="toc-number">3.3.2.</span> <span class="toc-text">创建存放哨兵日志的文件夹和文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%96%E8%BE%91%E5%93%A8%E5%85%B5%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">3.3.3.</span> <span class="toc-text">编辑哨兵配置文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%93%A8%E5%85%B5%E7%9A%84%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1"><span class="toc-number">3.3.4.</span> <span class="toc-text">创建哨兵的启动服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BE%9D%E6%AC%A1%E5%90%AF%E5%8A%A8%E5%93%A8%E5%85%B5-%E5%B9%B6%E4%BD%9C%E6%88%90%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8"><span class="toc-number">3.3.5.</span> <span class="toc-text">依次启动哨兵,并作成开机启动</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F%E5%AE%89%E8%A3%85"><span class="toc-number">4.</span> <span class="toc-text">集群模式安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%87%86%E5%A4%87-2"><span class="toc-number">4.1.</span> <span class="toc-text">服务器准备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E6%AF%8F%E5%8F%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%89%E8%A3%85%E4%B8%8Aredis-%E5%8F%82%E8%80%83%E5%8D%95%E6%9C%BA-%E5%8C%BA%E5%88%AB%E6%98%AF%E6%B7%BB%E5%8A%A0%E4%BB%A5%E4%B8%8B%E9%85%8D%E7%BD%AE"><span class="toc-number">4.2.</span> <span class="toc-text">为每台服务器安装上redis(参考单机),区别是添加以下配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%86%E6%AF%8F%E4%B8%AA%E8%8A%82%E7%82%B9%E5%81%9A%E6%88%90%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1-%E4%BE%9D%E6%AC%A1%E5%90%AF%E5%8A%A8"><span class="toc-number">4.3.</span> <span class="toc-text">将每个节点做成系统服务,依次启动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E9%9B%86%E7%BE%A4-%E8%BF%9B%E5%85%A5%E5%88%B0%E4%BB%BB%E6%84%8F%E8%8A%82%E7%82%B9%E4%B8%8B-%E6%89%A7%E8%A1%8C"><span class="toc-number">4.4.</span> <span class="toc-text">创建集群,进入到任意节点下,执行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9B%86%E7%BE%A4%E5%91%BD%E4%BB%A4"><span class="toc-number">4.5.</span> <span class="toc-text">集群命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9B%86%E7%BE%A4%E6%95%85%E9%9A%9C"><span class="toc-number">4.6.</span> <span class="toc-text">集群故障</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E7%82%B9"><span class="toc-number">5.</span> <span class="toc-text">注意点</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+
+
+    
+
+
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/love.js"></script>
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2020/08/06/%E6%95%B0%E6%8D%AE%E5%BA%93/redis/redis%E5%AD%A6%E4%B9%A0/" title="上一篇: redis学习">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2020/05/05/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/" title="下一篇: 冒泡排序">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2023/04/13/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/mysql%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">mysql数据结构</a></li><li class="post-list-item"><a class="post-list-link" href="/2023/02/17/%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/Mqtt%E9%9D%A2%E8%AF%95%E9%A2%98/">Mqtt面试题</a></li><li class="post-list-item"><a class="post-list-link" href="/2023/02/17/%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/Spring%E4%BA%8B%E5%8A%A1%E7%9A%84%E4%BC%A0%E6%92%AD%E6%9C%BA%E5%88%B6/">Spring事务的传播机制</a></li><li class="post-list-item"><a class="post-list-link" href="/2023/02/17/%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/%E4%BA%8B%E5%8A%A1%E7%9A%84%E9%9A%94%E7%A6%BB%E6%9C%BA%E5%88%B6/">事务的隔离机制</a></li><li class="post-list-item"><a class="post-list-link" href="/2023/02/17/%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/%E7%B4%A2%E5%BC%95/">索引</a></li><li class="post-list-item"><a class="post-list-link" href="/2023/02/17/%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/%E9%99%90%E6%B5%81-%E7%86%94%E6%96%AD-%E6%9C%8D%E5%8A%A1%E9%99%8D%E7%BA%A7/">限流-熔断-服务降级</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/06/15/%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/%E6%8E%A5%E5%8F%A3%E5%B9%82%E7%AD%89%E6%80%A7/">接口幂等性</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/01/22/%E5%BE%AE%E6%9C%8D%E5%8A%A1/sentinel/">sentinel</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/01/09/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/git/gitlab%E5%AE%89%E8%A3%85/">gitlab安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/01/08/%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6/rabbitmq/rabbitmq%E5%AD%A6%E4%B9%A0/">rabbitmq学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/01/08/%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6/rabbitmq/rabbitmq%E5%AE%89%E8%A3%85/">rabbitmq安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/01/06/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/zookeeper%E5%AE%89%E8%A3%85/">zookeeper安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/01/05/%E5%BE%AE%E6%9C%8D%E5%8A%A1/nacos/">nacos安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/01/05/%E5%BE%AE%E6%9C%8D%E5%8A%A1/springcloud/">springcloud学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/01/01/java/java%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/">java引用类型</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/01/01/java/jdk%E5%AE%89%E8%A3%85/">jdk安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/01/01/%E5%85%B6%E4%BB%96/jmeter%E5%AD%A6%E4%B9%A0/">jmeter学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/01/01/java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">java并发编程</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/01/01/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/git/git%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/">git命令大全</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/01/01/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/git/git%E5%AE%89%E8%A3%85/">git安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/08/15/%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/%E7%BA%BF%E4%B8%8Aoom%E9%97%AE%E9%A2%98/">线上oom问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/08/11/linux/linux%E5%AD%A6%E4%B9%A0/">Linux学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/08/11/linux/linux%E6%94%B6%E8%97%8F%E6%8C%87%E4%BB%A4/">Linux收藏指令</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/08/08/java/java8/lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/">lambda表达式</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/08/07/%E9%A1%B9%E7%9B%AE%E5%BA%94%E7%94%A8/%E5%BB%B6%E6%97%B6%E8%AE%A2%E5%8D%95%E5%A4%84%E7%90%86/">延时订单处理</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/08/07/java/springboot/springboot%E6%95%B4%E5%90%88mongodb/">springboot整合mongodb</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/08/06/%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/%E5%AE%9A%E6%97%B6%E5%99%A8%E4%B8%8D%E6%89%A7%E8%A1%8C%E9%97%AE%E9%A2%98/">定时器不执行问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/08/06/%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/">索引失效问题排查</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/08/06/java/springboot/springboot%E6%95%B4%E5%90%88redis/">springboot整合redis</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/04/10/%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6/%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AF%B9%E6%AF%94%E5%92%8C%E9%80%89%E5%9E%8B/">消息中间件对比和选型</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/04/10/java/springboot/springboot%E6%95%B4%E5%90%88activemq/">springboot整合activemq</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/04/10/%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6/activemq/activemq%E5%AD%A6%E4%B9%A0/">activemq学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/04/10/%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6/activemq/activemq%E5%AE%89%E8%A3%85/">activemq安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/04/09/java/springboot/springboot%E6%95%B4%E5%90%88kafka/">springboot整合kafka</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/04/09/%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6/kafka/kafka%E5%AD%A6%E4%B9%A0/">kafka学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/04/09/%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6/kafka/kafka%E5%AE%89%E8%A3%85/">kafka安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/04/08/java/springboot/springboot%E6%95%B4%E5%90%88rabbitmq/">springboot整合rabbitmq</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/04/07/java/springboot/springboot%E6%95%B4%E5%90%88rocketmq/">springboot整合rocketmq</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/04/07/%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6/rocketmq/rocketmq%E5%AD%A6%E4%B9%A0/">rocketmq学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/04/07/%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6/rocketmq/rocketmq%E5%AE%89%E8%A3%85/">rocketmq安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/01/25/%E9%A1%B9%E7%9B%AE%E5%BA%94%E7%94%A8/%E6%8E%A5%E5%8F%A3%E9%99%90%E6%B5%81/">接口限流</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/01/25/java/springboot/springboot%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F/">springboot项目部署的两种方式</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/06/%E6%95%B0%E6%8D%AE%E5%BA%93/mongodb/mongodb%E5%AD%A6%E4%B9%A0/">mongodb学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/06/%E6%95%B0%E6%8D%AE%E5%BA%93/mongodb/mongodb%E5%AE%89%E8%A3%85/">mongodb安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/06/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/mysql%E5%AD%A6%E4%B9%A0/">mysql学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/06/%E6%95%B0%E6%8D%AE%E5%BA%93/redis/redis%E5%AD%A6%E4%B9%A0/">redis学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/06/%E6%95%B0%E6%8D%AE%E5%BA%93/redis/redis%E5%AE%89%E8%A3%85/">redis安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/05/05/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/">冒泡排序</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/05/05/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/">选择排序</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/05/01/%E7%AE%97%E6%B3%95/%E5%8D%81%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2%E4%B8%BA%E4%BA%8C%E8%BF%9B%E5%88%B6%E7%AE%97%E6%B3%95/">十进制数字转换为二进制</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/19/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4/docker/docker%E5%85%A5%E9%97%A8/">Docker简介</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/23/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/">设计模式之适配器模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/22/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/">设计模式之建造者模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/21/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/">设计模式之原型模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/">设计模式之工厂方法模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/">设计模式之简单工厂模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">设计模式之单例模式</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2018-2023 王霄
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+    
+<script src="/js/GithubRepoWidget.js"></script>
+
+
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        $("a[target=_blank]").removeAttr("target");
+    
+</script>
+
+    <script>
+        var originTitle = document.title;
+        var titleTime;
+        document.addEventListener("visibilitychange", function() {
+            if (document.hidden) {
+                document.title = "开心" + originTitle;
+                clearTimeout(titleTime);
+            }
+            else {
+                document.title = "不开心" + originTitle;
+                titleTime = setTimeout(function() {
+                    document.title = originTitle;
+                }, 2000);
+            }
+        })
+    </script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
