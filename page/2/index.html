@@ -172,7 +172,7 @@
                 <section class="switch-part switch-part1">
                     <!--加滚动条-->
                     <nav class="header-menu" style="position:relative; height:400px; overflow-y:auto">
-                        <ul style="position:relative; height:400px; overflow-y:auto">
+                        <ul>
                             
                                 <li><a href="/">主页</a></li>
                             
@@ -186,8 +186,6 @@
                     </nav>
                     <nav class="header-nav">
                         <ul class="social">
-                            
-                                <a class="fa Email" href="mailto:&#49;&#48;&#51;&#51;&#49;&#51;&#54;&#57;&#54;&#55;&#64;&#113;&#113;&#46;&#99;&#111;&#109;" title="Email"></a>
                             
                                 <a class="fa GitHub" target="_blank" rel="noopener" href="https://github.com/loveUUxad" title="GitHub"></a>
                             
@@ -265,8 +263,6 @@
             <nav class="header-nav">
                         <ul class="social">
                             
-                                <a class="fa Email" target="_blank" href="mailto:&#49;&#48;&#51;&#51;&#49;&#51;&#54;&#57;&#54;&#55;&#64;&#113;&#113;&#46;&#99;&#111;&#109;" title="Email"></a>
-                            
                                 <a class="fa GitHub" target="_blank" href="https://github.com/loveUUxad" title="GitHub"></a>
                             
                                 <a class="fa Gitee" target="_blank" href="https://gitee.com/loveUUxad" title="Gitee"></a>
@@ -279,10 +275,10 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-消息中间件/rabbitmq/rabbitmq安装" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-消息中间件/rabbitmq/rabbitmq学习" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2022/01/08/%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6/rabbitmq/rabbitmq%E5%AE%89%E8%A3%85/" class="article-date">
+      <a href="/2022/01/08/%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6/rabbitmq/rabbitmq%E5%AD%A6%E4%B9%A0/" class="article-date">
       <time datetime="2022-01-07T16:00:00.000Z" itemprop="datePublished">2022-01-08</time>
 </a>
 
@@ -298,7 +294,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2022/01/08/%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6/rabbitmq/rabbitmq%E5%AE%89%E8%A3%85/">rabbitmq安装</a>
+      <a class="article-title" href="/2022/01/08/%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6/rabbitmq/rabbitmq%E5%AD%A6%E4%B9%A0/">rabbitmq学习</a>
     </h1>
   
 
@@ -308,160 +304,84 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <blockquote>
-<p><strong>rabbitmq是由erlang语言编写的,安装之前必须先安装erlang环境,并且两者版本需要匹配</strong><br><strong>rabbitmq依赖于socat,所以也要先安装socat</strong><br><strong>安装包版本中的el7,el8代表不同的系统,安装的时候要注意</strong></p>
-</blockquote>
-<ul>
-<li><strong><a target="_blank" rel="noopener" href="https://packagecloud.io/rabbitmq/erlang/">erlang安装包</a></strong></li>
-<li><strong><a target="_blank" rel="noopener" href="https://packagecloud.io/rabbitmq/rabbitmq-server">rabbitmq安装包</a></strong></li>
-<li><strong><a target="_blank" rel="noopener" href="https://www.rabbitmq.com/which-erlang.html">匹配说明</a></strong></li>
+        <h2 id="1-rabbitmq介绍"><a href="#1-rabbitmq介绍" class="headerlink" title="1. rabbitmq介绍"></a>1. rabbitmq介绍</h2><p>rabbitmq是一款使用Erlang语言开发的,实现AMQP(高级消息队列协议)的开源消息中间件</p>
+<h3 id="1-1-特性"><a href="#1-1-特性" class="headerlink" title="1.1 特性"></a>1.1 特性</h3><ul>
+<li>可靠性。支持持久化,传输确认,发布确认等保证了MQ的可靠性</li>
+<li>灵活的分发消息策略。这应该是rabbitmq的一大特点。在消息进入MQ前由Exchange(交换机)进行路由消息。分发消息策略有: 简单模式、工作队列模式、发布订阅模式、路由模式、通配符模式</li>
+<li>支持集群。多台rabbitmq服务器可以组成一个集群,形成一个逻辑Broker</li>
+<li>多种协议。rabbitmq支持多种消息队列协议,比如 STOMP、MQTT 等等</li>
+<li>支持多种语言客户端。rabbitmq几乎支持所有常用编程语言,包括 Java、.NET、Ruby 等等</li>
+<li>可视化管理界面。rabbitmq提供了一个易用的用户界面,使得用户可以监控和管理消息 Broker</li>
+<li>插件机制。rabbitmq提供了许多插件,可以通过插件进行扩展,也可以编写自己的插件</li>
 </ul>
-<h3 id="1-单机版安装"><a href="#1-单机版安装" class="headerlink" title="1. 单机版安装"></a>1. 单机版安装</h3><ol>
-<li>erlang安装</li>
+<h3 id="1-2-概念"><a href="#1-2-概念" class="headerlink" title="1.2 概念"></a>1.2 概念</h3><ol>
+<li>Broker: 简单来说就是消息队列服务器实体</li>
+<li>Exchange: 消息交换机,它指定消息按什么规则,路由到哪个队列。</li>
+<li>Queue: 消息队列载体,每个消息都会被投入到一个或多个队列。</li>
+<li>Binding: 绑定,它的作用就是把exchange和queue按照路由规则绑定起来。</li>
+<li>Routing Key: 路由关键字,exchange根据这个关键字进行消息投递。</li>
+<li>vhost: 虚拟主机,一个broker里可以开设多个vhost,用作不同用户的权限分离。</li>
+<li>producer: 消息生产者,就是投递消息的程序。</li>
+<li>consumer: 消息消费者,就是接受消息的程序。</li>
+<li>channel: 消息通道,在客户端的每个连接里,可建立多个channel,每个channel代表一个会话任务。</li>
 </ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget --content-disposition https://packagecloud.io/rabbitmq/erlang/packages/el/8/erlang-24.2-1.el8.x86_64.rpm/download.rpm</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh erlang-24.2-1.el8.x86_64.rpm</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>socat安装</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install socat -y</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>rabbitmq安装</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget --content-disposition https://packagecloud.io/rabbitmq/rabbitmq-server/packages/el/8/rabbitmq-server-3.9.12-1.el8.noarch.rpm/download.rpm</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh rabbitmq-server-3.9.12-1.el8.noarch.rpm</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li>基本命令</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">systemctl start rabbitmq-server</span><br><span class="line">systemctl status rabbitmq-server</span><br><span class="line">systemctl enable rabbitmq-server</span><br><span class="line">systemctl stop rabbitmq-server</span><br><span class="line">systemctl restart rabbitmq-server</span><br></pre></td></tr></table></figure>
-
-<ol start="5">
-<li>web管理界面插件安装</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rabbitmq-plugins enable rabbitmq_management</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>访问 <a target="_blank" rel="noopener" href="http://ip:15672/">http://ip:15672</a> ,用默认账号密码<strong>guest</strong>登录,出现权限问题 默认情况只能在 localhost 本机下访问,所以需要添加一个远程登录的用户</p>
-</blockquote>
-<ul>
-<li>创建账号和密码</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rabbitmqctl add_user admin 123456</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>设置用户角色</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rabbitmqctl set_user_tags admin administrator</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>为用户添加资源权限</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rabbitmqctl set_permissions -p &quot;/&quot; admin &quot;.*&quot; &quot;.*&quot; &quot;.*&quot;</span><br></pre></td></tr></table></figure>
-
-<p>** <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/b5f8057a1cd5">权限博客参考</a>**</p>
-<ol start="6">
-<li>其他插件安装(非必须,以延时队列插件为例)</li>
-</ol>
-<p>将下载好的延时队列插件移动到指定目录 <a target="_blank" rel="noopener" href="https://github.com/rabbitmq/rabbitmq-delayed-message-exchange/releases/tag/3.9.0">下载地址</a></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv rabbitmq_delayed_message_exchange-3.9.0.ez /usr/lib/rabbitmq/lib/rabbitmq_server-3.9.12/plugins/</span><br></pre></td></tr></table></figure>
-
-<p>开启延时队列功能</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rabbitmq-plugins enable rabbitmq_delayed_message_exchange</span><br></pre></td></tr></table></figure>
-
-<ol start="7">
-<li>卸载</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum -y remove rabbitmq-server.noarch</span><br><span class="line">rm -rf /var/lib/rabbitmq/ &amp;&amp; rm -rf /var/log/rabbitmq/ &amp;&amp; rm -rf /usr/local/rabbitmq/</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-集群安装-镜像模式"><a href="#2-集群安装-镜像模式" class="headerlink" title="2. 集群安装(镜像模式)"></a>2. 集群安装(镜像模式)</h3><p><strong>服务器准备</strong></p>
-<table>
-<thead>
-<tr>
-<th align="left">服务器</th>
-<th align="left">端口</th>
-<th align="left">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">192.168.72.128</td>
-<td align="left">5672</td>
-<td align="left">硬盘节点</td>
-</tr>
-<tr>
-<td align="left">192.168.72.131</td>
-<td align="left">5672</td>
-<td align="left">内存节点</td>
-</tr>
-<tr>
-<td align="left">192.168.72.132</td>
-<td align="left">5672</td>
-<td align="left">内存节点</td>
-</tr>
-</tbody></table>
+<h3 id="1-3-Exchanges"><a href="#1-3-Exchanges" class="headerlink" title="1.3 Exchanges"></a>1.3 Exchanges</h3><h4 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h4><p>rabbitmq 消息传递模型的核心思想是: 生产者生产的消息从不会直接发送到队列。 实际上,通常生产者甚至都不知道这些消息传递传递到了哪些队列中。 相反,生产者只能将消息发送到交换机(exchange)<br>,交换机工作的内容非常简单,一方面它接收来自生产者的消息,另一方面将它们推入队列。 交换机必须确切知道如何处理收到的消息。是应该把这些消息放到特定队列还是说把他们到许多队列中还是说应该丢弃它们。这就的由交换机的类型来决定。</p>
+<h4 id="2-交换机类型"><a href="#2-交换机类型" class="headerlink" title="2. 交换机类型"></a>2. 交换机类型</h4><h5 id="1-Direct-Exchange"><a href="#1-Direct-Exchange" class="headerlink" title="1. Direct Exchange"></a>1. Direct Exchange</h5><p>处理路由键。需要将一个队列绑定到交换机上,要求该消息与一个特定的路由键完全匹配。这是一个完整的匹配。如果一个队列绑定到该交换机上要求路由键<br>“abc”,则只有被标记为“abc”的消息才被转发,不会转发abc.def,也不会转发dog.ghi,只会转发abc。</p>
+<h5 id="2-Fanout-Exchange"><a href="#2-Fanout-Exchange" class="headerlink" title="2. Fanout Exchange"></a>2. Fanout Exchange</h5><p>不处理路由键。你只需要简单的将队列绑定到交换机上。一个发送到交换机的消息都会被转发到与该交换机绑定的所有队列上。很像子网广播,每台子网内的主机都获得了一份复制的消息。Fanout交换机转发消息是最快的。</p>
+<h5 id="3-Topic-Exchange"><a href="#3-Topic-Exchange" class="headerlink" title="3. Topic Exchange"></a>3. Topic Exchange</h5><p>将路由键和某模式进行匹配。此时队列需要绑定要一个模式上。符号“#”匹配一个或多个词,符号“”匹配不多不少一个词。因此“abc.#”能够匹配到“abc.def.ghi”,但是“abc.” 只会匹配到“abc.def”。</p>
+<h5 id="4-Headers-Exchanges"><a href="#4-Headers-Exchanges" class="headerlink" title="4. Headers Exchanges"></a>4. Headers Exchanges</h5><p>不处理路由键。而是根据发送的消息内容中的headers属性进行匹配。在绑定Queue与Exchange时指定一组键值对；当消息发送到rabbitmq时会取到该消息的headers与Exchange绑定时指定的键值对进行匹配；如果完全匹配则消息会路由到该队列,否则不会路由到该队列。headers属性是一个键值对,可以是Hashtable,键值对的值可以是任何类型。而fanout,direct,topic<br>的路由键都需要要字符串形式的。</p>
+<h3 id="1-4-消息持久化"><a href="#1-4-消息持久化" class="headerlink" title="1.4 消息持久化"></a>1.4 消息持久化</h3><p><strong>消息可能丢失的步骤</strong></p>
 <ol>
-<li>禁用SELINUX,为每台机器执行以下操作</li>
+<li>生产者到Broker过程中丢失消息</li>
 </ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/selinux/config</span><br></pre></td></tr></table></figure>
-
 <blockquote>
-<p>修改下面配置</p>
+<p>解决方法: 开启发布确认</p>
 </blockquote>
-<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">SELINUX</span>=<span class="string">disabled</span></span><br></pre></td></tr></table></figure>
-
+<ul>
+<li>单个发布确认</li>
+<li>批量发布确认</li>
+<li>批量异步发布确认</li>
+</ul>
 <ol start="2">
-<li>修改三台机器的host文件</li>
+<li>Broker宕机丢失消息</li>
 </ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/hosts</span><br></pre></td></tr></table></figure>
-
 <blockquote>
-<p>添加以下内容,s1,s2,s3分别为三个节点的虚拟名称,可自定义</p>
+<p>解决方法: 消息持久化</p>
 </blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">192.168.186.128 s1</span><br><span class="line">192.168.186.131 s2</span><br><span class="line">192.168.186.132 s3</span><br></pre></td></tr></table></figure>
-
 <ol start="3">
-<li><p>重启服务器</p>
-</li>
-<li><p>为每台机器安装rabbitmq和web插件,并启动(不要创建用户)</p>
-</li>
-<li><p>设置每个节点的cookie文件相同</p>
-</li>
-</ol>
-<ul>
-<li>先将文件赋予写权限</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 600 /var/lib/rabbitmq/.erlang.cookie</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>更改cookie内容,节点保持一致</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /var/lib/rabbitmq/.erlang.cookie</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>重启服务</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart rabbitmq-server</span><br></pre></td></tr></table></figure>
-
-<ol start="6">
-<li>配置节点</li>
+<li>Broker到消费者过程中丢失消息</li>
 </ol>
 <blockquote>
-<p>s1为硬盘节点,s2和s3是内存节点,所以分别在s2和s3上设置如下内容</p>
+<p>解决方法: 消息应答</p>
 </blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rabbitmqctl stop_app</span><br><span class="line">rabbitmqctl join_cluster --ram rabbit@s1</span><br><span class="line">rabbitmqctl start_app</span><br></pre></td></tr></table></figure>
-
-<ol start="7">
-<li><p>在s1服务器创建用户(用户会自动同步到s2,s3)</p>
-</li>
-<li><p>在s1服务器安装其他所需插件</p>
-</li>
+<h3 id="1-5-消息幂等性"><a href="#1-5-消息幂等性" class="headerlink" title="1.5 消息幂等性"></a>1.5 消息幂等性</h3><ul>
+<li>利用redis原子性进行消息去重处理</li>
+</ul>
+<h3 id="1-6-死信的条件"><a href="#1-6-死信的条件" class="headerlink" title="1.6 死信的条件"></a>1.6 死信的条件</h3><ul>
+<li>消息TTL过期</li>
+<li>消息队列已满</li>
+<li>消息被拒绝</li>
+</ul>
+<h3 id="1-7-拓展"><a href="#1-7-拓展" class="headerlink" title="1.7 拓展"></a>1.7 拓展</h3><h4 id="1-rabbitmq用户角色"><a href="#1-rabbitmq用户角色" class="headerlink" title="1. rabbitmq用户角色"></a>1. rabbitmq用户角色</h4><p>用户角色可分为五类：超级管理员、监控者、策略制定者、普通管理者以及其他</p>
+<ol>
+<li>超级管理员(administrator)<br>可登陆管理控制台(启用management plugin的情况下),可查看所有的信息,并且可以对用户、策略(policy)进行操作</li>
+<li>监控者(monitoring)<br>可登陆管理控制台(启用management plugin的情况下),同时可以查看rabbitmq节点的相关信息(进程数、内存使用情况、磁盘使用情况等)</li>
+<li>策略制定者(policymaker)<br>可登陆管理控制台(启用management plugin的情况下),同时可以对policy进行管理,但无法查看节点的相关信息</li>
+<li>普通管理者(management)<br>仅可登陆管理控制台(启用management plugin的情况下),无法看到节点信息,也无法对策略进行管理</li>
+<li>其他 无法登陆管理控制台,通常就是普通的生产者和消费者 了解了这些后,就可以根据需要给不同的用户设置不同的角色,以便按需管理</li>
 </ol>
-<h3 id="3-其他"><a href="#3-其他" class="headerlink" title="3. 其他"></a>3. 其他</h3><ul>
-<li><strong><a target="_blank" rel="noopener" href="https://note.oddfar.com/pages/2c91a1/#mq-%E7%9A%84%E9%80%89%E6%8B%A9">参考文档</a></strong></li>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">设置用户角色的命令为：</span></span><br><span class="line">./rabbitmqctl set_user_tags User Tag</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">User为用户名,Tag为角色名(对应于上面的 administrator、monitoring、policymaker、management或其他自定义名称)</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">也可以给同一用户设置多个角色,例如:</span></span><br><span class="line">./rabbitmqctl set_user_tags myName monitoring policymaker</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-用户权限"><a href="#2-用户权限" class="headerlink" title="2. 用户权限"></a>2. 用户权限</h4><ol>
+<li>用户权限指的是用户对 exchange、queue 的操作权限,包括配置权限、读写权限。 配置权限会影响到 exchange,queue 的声明和删除。</li>
+<li>读写权限影响到从queue里取消息,向exchange发送消息以及queue和exchange的绑定(bind)操作 例如: 将queue绑定到某exchange上,需要具有queue的写权限,以及exchange的读权限。 向exchange发送消息需要具有exchange的写权限。 从queue里取数据需要具有queue的读权限。</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">设置用户角色的命令为：</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">设置用户权限</span></span><br><span class="line">./rabbitmqctl set_permissions -p VHostPath User ConfP WriteP ReadP</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如:设置guest用户权限</span></span><br><span class="line">./rabbitmqctl set_permissions -p / guest &#x27;.*&#x27; &#x27;.*&#x27; &#x27;.*&#x27;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看(指定VHostPath)所有用户的权限信息</span></span><br><span class="line">./rabbitmqctl list_permissions [-p VHostPath]</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">列出虚拟主机上的所有权限</span></span><br><span class="line">./rabbitmqctl list_permissions -p /</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看指定用户的权限信息</span></span><br><span class="line">./rabbitmqctl list_user_permissions User</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">列出guest用户权限</span></span><br><span class="line">./rabbitmqctl list_user_permissions guest</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">清除用户的权限</span></span><br><span class="line">./rabbitmqctl clear_permissions [-p VHostPath]  User</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-vhost-操作"><a href="#3-vhost-操作" class="headerlink" title="3. vhost 操作"></a>3. vhost 操作</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./rabbitmqctl delete_vhost /</span><br><span class="line">./rabbitmqctl add_vhost /</span><br><span class="line">./rabbitmqctl list_vhosts</span><br></pre></td></tr></table></figure>
+
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://note.oddfar.com/pages/2c91a1/#mq-%E7%9A%84%E9%80%89%E6%8B%A9">参考文档</a></li>
 </ul>
 
       
@@ -477,7 +397,7 @@
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rabbitmq/" rel="tag">rabbitmq</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/" rel="tag">软件安装</a></li></ul>
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rabbitmq/" rel="tag">rabbitmq</a></li></ul>
     </div>
 
       
@@ -492,10 +412,6 @@
 
 
 
-
-
-<!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/love.js"></script>
 
 
 
@@ -564,10 +480,6 @@
 
 
 
-
-
-<!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/love.js"></script>
 
 
 
@@ -644,10 +556,6 @@
 
 
 
-
-
-<!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/love.js"></script>
 
 
 
@@ -842,10 +750,6 @@
 
 
 
-<!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/love.js"></script>
-
-
 
 
   
@@ -927,10 +831,6 @@
 
 
 
-<!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/love.js"></script>
-
-
 
 
   
@@ -1001,10 +901,6 @@
 
 
 
-
-
-<!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/love.js"></script>
 
 
 
@@ -1106,10 +1002,6 @@
 
 
 
-<!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/love.js"></script>
-
-
 
 
   
@@ -1184,10 +1076,6 @@
 
 
 
-<!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/love.js"></script>
-
-
 
 
   
@@ -1250,10 +1138,6 @@
 
 
 
-
-
-<!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/love.js"></script>
 
 
 
@@ -1327,10 +1211,6 @@
 
 
 
-<!-- 页面点击小红心 -->
-<script type="text/javascript" src="/js/love.js"></script>
-
-
 
 
   
@@ -1345,7 +1225,7 @@
         <div id="footer-info">
             <div class="footer-left">
                 <i class="fa fa-copyright"></i> 
-                2018-2023 王霄
+                2018-2024 王霄
             </div>
             <div class="footer-right">
                 <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
